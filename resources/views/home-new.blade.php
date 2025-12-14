@@ -59,6 +59,9 @@
         </div>
     </section>
 
+    <!-- Latest Information -->
+    <livewire:latest-information />
+
     <!-- Testimonials -->
     <livewire:testimonial-items />
 
@@ -67,10 +70,10 @@
         <div class="container">
             <div class="text-center mb-12">
                 <span class="inline-block px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-4">
-                    Berita Terkini
+                    Berita
                 </span>
                 <h2 class="section-title">
-                    Informasi & Berita Terbaru
+                    Berita Terbaru
                 </h2>
                 <p class="section-subtitle max-w-2xl mx-auto">
                     Ikuti perkembangan dan kegiatan terbaru di STP Dian Mandala

@@ -17,8 +17,10 @@ class DetailGallery extends Component
 
     public function render()
     {
+        $images = $this->gallery ? $this->gallery->images()->paginate($this->imagesPerPage) : collect([]);
+
         return view('livewire.detail-gallery', [
-            'images' => $this->gallery ? $this->gallery->images()->simplePaginate($this->imagesPerPage) : [],
+            'images' => $images,
         ])->layout('components.modern-layout', [
             'title' => $this->gallery ? $this->gallery->title : 'Galeri',
             'description' => ($this->gallery ? $this->gallery->title . ' - ' : '') . 'Dokumentasi foto kegiatan ' . company()->name,

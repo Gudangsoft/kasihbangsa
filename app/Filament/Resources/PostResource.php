@@ -32,10 +32,10 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationLabel = 'Berita Informasi';
+    protected static ?string $navigationLabel = 'Berita';
 
-    protected static ?string $modelLabel = 'Berita Informasi';
-    protected static ?string $pluralModelLabel = 'Berita Informasi';
+    protected static ?string $modelLabel = 'Berita';
+    protected static ?string $pluralModelLabel = 'Berita';
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 

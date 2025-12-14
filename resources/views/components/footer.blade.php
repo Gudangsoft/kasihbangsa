@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/page/sejarah" class="hover:text-white transition-colors duration-200 flex items-center group">
+                        <a href="/page/tentang-kami" class="hover:text-white transition-colors duration-200 flex items-center group">
                             <span class="w-0 group-hover:w-2 h-0.5 bg-primary-300 mr-0 group-hover:mr-2 transition-all duration-200"></span>
                             Tentang Kami
                         </a>

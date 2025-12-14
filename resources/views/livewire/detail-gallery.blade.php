@@ -42,8 +42,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                         </svg>
                         <span class="text-sm font-medium">{{ $gallery->category->name }}</span>
-                        <span class="mx-2">•</span>
-                        <span class="text-sm">{{ $images->total() }} Foto</span>
+                        @if(method_exists($images, 'total'))
+                            <span class="mx-2">•</span>
+                            <span class="text-sm">{{ $images->total() }} Foto</span>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -63,50 +65,30 @@
             @if($images->count() > 0)
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach ($images as $item)
-                        <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer animate-fade-in"
-                             style="animation-delay: {{ $loop->index * 0.05 }}s"
-                             x-data="{ showOverlay: false }"
-                             @click="showOverlay = true">
+                        <a href="{{ $item->image }}"
+                           data-fancybox="gallery"
+                           data-caption="{{ $gallery->title }} - Foto {{ $loop->iteration }}"
+                           class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 block animate-fade-in"
+                           style="animation-delay: {{ $loop->index * 0.05 }}s">
                             <!-- Image -->
                             <div class="aspect-square overflow-hidden bg-gray-200">
                                 <img src="{{ $item->image }}"
                                      alt="{{ $gallery->title }}"
                                      loading="lazy"
                                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            </div>
 
-                            <!-- Overlay -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                    <button class="bg-white text-primary-600 p-4 rounded-full hover:bg-primary-600 hover:text-white transition-colors duration-300 shadow-lg">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
-                                        </svg>
-                                    </button>
+                                <!-- Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                        <div class="bg-white text-primary-600 p-4 rounded-full shadow-lg">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <!-- Lightbox Modal -->
-                            <div x-show="showOverlay"
-                                 @click.away="showOverlay = false"
-                                 x-transition:enter="transition ease-out duration-300"
-                                 x-transition:enter-start="opacity-0"
-                                 x-transition:enter-end="opacity-100"
-                                 x-transition:leave="transition ease-in duration-200"
-                                 x-transition:leave-start="opacity-100"
-                                 x-transition:leave-end="opacity-0"
-                                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
-                                 style="display: none;">
-                                <button @click="showOverlay = false" class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
-                                </button>
-                                <img src="{{ $item->image }}"
-                                     alt="{{ $gallery->title }}"
-                                     class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
-                            </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
 

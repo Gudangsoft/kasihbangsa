@@ -132,7 +132,7 @@
 
     <!-- Decorative Wave -->
     <div class="absolute bottom-0 left-0 right-0">
-        <svg class="w-full h-16 md:h-24 text-gray-50" preserveAspectRatio="none" viewBox="0 0 1440 74" fill="currentColor">
+        <svg class="w-full h-16 md:h-24" preserveAspectRatio="none" viewBox="0 0 1440 74" fill="#05646e">
             <path d="M0,32L80,37.3C160,43,320,53,480,56C640,59,800,53,960,48C1120,43,1280,37,1360,34.7L1440,32L1440,74L1360,74C1280,74,1120,74,960,74C800,74,640,74,480,74C320,74,160,74,80,74L0,74Z"></path>
         </svg>
     </div>

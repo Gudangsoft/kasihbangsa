@@ -39,6 +39,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
@@ -69,6 +72,9 @@
     @livewireScripts
     @stack('scripts')
 
+    <!-- Fancybox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
     <script>
         // Back to top button functionality
         const backToTopButton = document.getElementById('back-to-top');
@@ -89,6 +95,23 @@
                 behavior: 'smooth'
             });
         });
+
+        // Initialize Fancybox
+        if (typeof Fancybox !== 'undefined') {
+            Fancybox.bind("[data-fancybox='gallery']", {
+                Toolbar: {
+                    display: {
+                        left: ["infobar"],
+                        middle: [],
+                        right: ["slideshow", "thumbs", "close"],
+                    },
+                },
+                Thumbs: {
+                    autoStart: false,
+                },
+                Hash: false,
+            });
+        }
     </script>
 </body>
 </html>
