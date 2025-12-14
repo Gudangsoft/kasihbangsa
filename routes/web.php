@@ -6,6 +6,7 @@ use App\Livewire\DetailGallery;
 use App\Livewire\DetailPage;
 use App\Livewire\DetailPost;
 use App\Livewire\GalleryItems;
+use App\Livewire\GlobalSearch;
 use App\Livewire\InformationItems;
 use App\Livewire\InformationList;
 use App\Livewire\KerjaSama;
@@ -19,6 +20,7 @@ Route::get('/', function () {
     return view('home-new');
 });
 
+Route::get('/search', GlobalSearch::class)->name('search');
 Route::get('berita', PostItems::class)->name('berita');
 Route::get('read', DetailPost::class)->name('detail-berita');
 

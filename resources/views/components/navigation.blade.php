@@ -136,6 +136,15 @@
                 @endif
             </div>
 
+                <!-- Search Button -->
+                <a href="{{ route('search') }}"
+                   class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary-700 hover:bg-primary-50/80 transition-all duration-200"
+                   title="Pencarian">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </a>
+
             <!-- Mobile Menu Button -->
             <button @click="mobileMenuOpen = !mobileMenuOpen"
                     class="lg:hidden p-2.5 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-gray-200"
@@ -164,6 +173,17 @@
 
         <div class="container mx-auto px-4 py-6 max-h-[calc(100vh-88px)] overflow-y-auto">
             <div class="space-y-2">
+                <!-- Search Link -->
+                <a href="{{ route('search') }}"
+                   class="flex items-center justify-between px-4 py-3.5 rounded-xl text-gray-800 hover:bg-white hover:text-primary-700 transition-all duration-200 font-semibold shadow-sm border border-gray-100 bg-white ps-3">
+                    <span class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        Pencarian
+                    </span>
+                </a>
+
                 @foreach($allMenus as $menu)
                     @if($menu->submenus->count() > 0)
                         <div x-data="{ open: false }" class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">

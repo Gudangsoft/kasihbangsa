@@ -7,9 +7,25 @@
     @include('components.about-section')
 
     <!-- Features/Stats Section -->
-    <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800 text-white relative overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
+    <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800 text-white relative overflow-hidden"
+             x-data="{
+                 statsParallax: 0,
+                 init() {
+                     window.addEventListener('scroll', () => {
+                         const section = this.$el;
+                         const rect = section.getBoundingClientRect();
+                         const scrolled = window.pageYOffset;
+                         const sectionTop = rect.top + scrolled;
+                         const offset = scrolled - sectionTop + window.innerHeight;
+                         if (offset > 0 && rect.top < window.innerHeight) {
+                             this.statsParallax = offset * 0.3;
+                         }
+                     });
+                 }
+             }">
+        <!-- Background Pattern with Parallax -->
+        <div class="absolute inset-0 opacity-10"
+             :style="`transform: translateY(${statsParallax}px);`">
             <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
         </div>
 

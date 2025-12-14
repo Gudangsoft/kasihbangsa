@@ -5,8 +5,18 @@
             currentSlide: 0,
             slides: {{ count($slides) }},
             autoplay: null,
+            parallaxOffset: 0,
             init() {
                 this.startAutoplay();
+                this.handleParallax();
+                window.addEventListener('scroll', () => this.handleParallax());
+            },
+            handleParallax() {
+                const scrolled = window.pageYOffset;
+                const heroHeight = this.$refs.heroSection?.offsetHeight || 0;
+                if (scrolled < heroHeight) {
+                    this.parallaxOffset = scrolled * 0.5;
+                }
             },
             startAutoplay() {
                 this.autoplay = setInterval(() => {
@@ -27,10 +37,10 @@
                 this.stopAutoplay();
                 this.startAutoplay();
             }
-        }" class="relative" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
+        }" class="relative" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()" x-ref="heroSection">
 
             <!-- Slides -->
-            <div class="relative h-[500px] md:h-[600px] lg:h-[700px]">
+            <div class="relative h-screen min-h-[600px]">
                 @foreach($slides as $index => $slide)
                 <div x-show="currentSlide === {{ $index }}"
                      x-transition:enter="transition ease-out duration-700"
@@ -42,17 +52,20 @@
                      class="absolute inset-0"
                      style="display: {{ $index === 0 ? 'block' : 'none' }}">
 
-                    <!-- Background Image -->
-                    <div class="absolute inset-0">
-                        <img src="{{ asset('storage/' . $slide['image']) }}"
-                             alt="{{ $slide['title'] }}"
-                             class="w-full h-full object-cover">
+                    <!-- Background Image with Parallax -->
+                    <div class="absolute inset-0 overflow-hidden">
+                        <div class="absolute inset-0 w-full h-full"
+                             :style="`transform: translateY(${ parallaxOffset }px) scale(1.1);`">
+                            <img src="{{ asset('storage/' . $slide['image']) }}"
+                                 alt="{{ $slide['title'] }}"
+                                 class="w-full h-full object-cover transition-transform duration-100">
+                        </div>
                         <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
                     </div>
 
                     <!-- Content -->
-                    <div class="relative h-full container flex items-center">
-                        <div class="max-w-3xl text-white animate-slide-up">
+                    <div class="relative h-full container mx-auto px-4 flex items-center justify-center">
+                        <div class="max-w-3xl text-white text-center lg:text-left animate-slide-up">
                             <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight">
                                 {{ $slide['title'] }}
                             </h1>
@@ -63,11 +76,11 @@
                             </p>
                             @endif
 
-                            <div class="flex flex-wrap gap-4">
-                                <a href="#about" class="btn btn-primary bg-white text-primary-600 hover:bg-gray-100">
+                            <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                                <a href="#about" class="btn btn-primary bg-white text-primary-600 hover:bg-gray-100 shadow-xl">
                                     Selengkapnya
                                 </a>
-                                <a href="/#contact" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary-600">
+                                <a href="/#contact" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary-600 shadow-lg">
                                     Hubungi Kami
                                 </a>
                             </div>
@@ -109,9 +122,9 @@
         </div>
     @else
         <!-- Default Hero without Slides -->
-        <div class="relative h-[500px] md:h-[600px] lg:h-[700px] flex items-center">
+        <div class="relative h-screen min-h-[600px] flex items-center justify-center">
             <div class="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-800"></div>
-            <div class="relative container text-white text-center">
+            <div class="relative container mx-auto px-4 text-white text-center">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 animate-slide-up">
                     Selamat Datang di STP Dian Mandala
                 </h1>
@@ -129,6 +142,16 @@
             </div>
         </div>
     @endif
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+        <a href="#about" class="flex flex-col items-center text-white/80 hover:text-white transition-colors duration-300">
+            <span class="text-sm font-medium mb-2">Scroll Down</span>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </a>
+    </div>
 
     <!-- Decorative Wave -->
     <div class="absolute bottom-0 left-0 right-0">
