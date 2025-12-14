@@ -30,6 +30,112 @@ class HomeSettingResource extends Resource
             ->schema([
                 Forms\Components\Tabs::make('Settings')
                     ->tabs([
+                        // Company Profile Tab
+                        Forms\Components\Tabs\Tab::make('Profil Website')
+                            ->icon('heroicon-o-building-office')
+                            ->schema([
+                                Forms\Components\Section::make('Informasi Website')
+                                    ->description('Informasi dasar tentang institusi')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('company_name')
+                                            ->label('Nama Institusi')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->placeholder('STP Dian Mandala'),
+
+                                        Forms\Components\Textarea::make('company_description')
+                                            ->label('Deskripsi')
+                                            ->rows(4)
+                                            ->columnSpanFull()
+                                            ->placeholder('Deskripsi singkat tentang institusi...'),
+
+                                        Forms\Components\FileUpload::make('company_logo')
+                                            ->label('Logo')
+                                            ->image()
+                                            ->directory('company')
+                                            ->maxSize(2048)
+                                            ->columnSpanFull(),
+                                    ])
+                                    ->columns(2),
+
+                                Forms\Components\Section::make('Kontak Informasi')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('company_address')
+                                            ->label('Alamat')
+                                            ->maxLength(255)
+                                            ->columnSpanFull(),
+
+                                        Forms\Components\TextInput::make('company_phone')
+                                            ->label('Telepon')
+                                            ->tel()
+                                            ->maxLength(20),
+
+                                        Forms\Components\TextInput::make('company_email')
+                                            ->label('Email')
+                                            ->email()
+                                            ->maxLength(255),
+
+                                        Forms\Components\TextInput::make('company_website')
+                                            ->label('Website')
+                                            ->url()
+                                            ->maxLength(255)
+                                            ->columnSpanFull(),
+                                    ])
+                                    ->columns(2),
+
+                                Forms\Components\Section::make('SEO Meta')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('meta_title')
+                                            ->label('Meta Title')
+                                            ->maxLength(255)
+                                            ->columnSpanFull(),
+
+                                        Forms\Components\Textarea::make('meta_keywords')
+                                            ->label('Meta Keywords')
+                                            ->rows(2)
+                                            ->columnSpanFull()
+                                            ->placeholder('keyword1, keyword2, keyword3'),
+
+                                        Forms\Components\Textarea::make('meta_description')
+                                            ->label('Meta Description')
+                                            ->rows(3)
+                                            ->columnSpanFull(),
+                                    ]),
+
+                                Forms\Components\Section::make('Media Sosial')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('facebook')
+                                            ->label('Facebook')
+                                            ->url()
+                                            ->placeholder('https://facebook.com/...')
+                                            ->columnSpanFull(),
+
+                                        Forms\Components\TextInput::make('instagram')
+                                            ->label('Instagram')
+                                            ->url()
+                                            ->placeholder('https://instagram.com/...')
+                                            ->columnSpanFull(),
+
+                                        Forms\Components\TextInput::make('youtube')
+                                            ->label('YouTube')
+                                            ->url()
+                                            ->placeholder('https://youtube.com/...')
+                                            ->columnSpanFull(),
+
+                                        Forms\Components\TextInput::make('twitter')
+                                            ->label('Twitter')
+                                            ->url()
+                                            ->placeholder('https://twitter.com/...')
+                                            ->columnSpanFull(),
+
+                                        Forms\Components\TextInput::make('tiktok')
+                                            ->label('TikTok')
+                                            ->url()
+                                            ->placeholder('https://tiktok.com/...')
+                                            ->columnSpanFull(),
+                                    ]),
+                            ]),
+
                         // About Section Tab
                         Forms\Components\Tabs\Tab::make('Tentang Kami')
                             ->icon('heroicon-o-information-circle')
@@ -167,7 +273,7 @@ class HomeSettingResource extends Resource
                                             ->default('Kirimkan pesan kepada kami, kami akan membalas Anda melalui email dalam waktu 24 jam.')
                                             ->columnSpanFull(),
 
-                                        Forms\Components\Textarea::make('map_embed_url')
+                                        Forms\Components\Textarea::make('contact_map_embed_url')
                                             ->label('URL Embed Google Maps')
                                             ->rows(3)
                                             ->placeholder('https://www.google.com/maps/embed?pb=...')

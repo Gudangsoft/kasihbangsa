@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\WebsiteActivation;
+use App\Models\HomeSetting;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class WebsiteActivationPolicy
+class HomeSettingPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class WebsiteActivationPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_website::activation');
+        return $user->can('view_any_home::setting');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, WebsiteActivation $websiteActivation): bool
+    public function view(User $user, HomeSetting $homeSetting): bool
     {
-        return $user->can('view_website::activation');
+        return $user->can('view_home::setting');
     }
 
     /**
@@ -31,23 +31,23 @@ class WebsiteActivationPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_website::activation');
+        return $user->can('create_home::setting');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, WebsiteActivation $websiteActivation): bool
+    public function update(User $user, HomeSetting $homeSetting): bool
     {
-        return $user->can('update_website::activation');
+        return $user->can('update_home::setting');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, WebsiteActivation $websiteActivation): bool
+    public function delete(User $user, HomeSetting $homeSetting): bool
     {
-        return $user->can('delete_website::activation');
+        return $user->can('delete_home::setting');
     }
 
     /**
@@ -55,15 +55,15 @@ class WebsiteActivationPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_website::activation');
+        return $user->can('delete_any_home::setting');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, WebsiteActivation $websiteActivation): bool
+    public function forceDelete(User $user, HomeSetting $homeSetting): bool
     {
-        return $user->can('force_delete_website::activation');
+        return $user->can('force_delete_home::setting');
     }
 
     /**
@@ -71,15 +71,15 @@ class WebsiteActivationPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_website::activation');
+        return $user->can('force_delete_any_home::setting');
     }
 
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, WebsiteActivation $websiteActivation): bool
+    public function restore(User $user, HomeSetting $homeSetting): bool
     {
-        return $user->can('restore_website::activation');
+        return $user->can('restore_home::setting');
     }
 
     /**
@@ -87,15 +87,15 @@ class WebsiteActivationPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_website::activation');
+        return $user->can('restore_any_home::setting');
     }
 
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, WebsiteActivation $websiteActivation): bool
+    public function replicate(User $user, HomeSetting $homeSetting): bool
     {
-        return $user->can('replicate_website::activation');
+        return $user->can('replicate_home::setting');
     }
 
     /**
@@ -103,6 +103,6 @@ class WebsiteActivationPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_website::activation');
+        return $user->can('reorder_home::setting');
     }
 }

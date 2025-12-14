@@ -11,6 +11,27 @@ return new class extends Migration
         Schema::create('home_settings', function (Blueprint $table) {
             $table->id();
 
+            // Company Profile
+            $table->string('company_name');
+            $table->text('company_description')->nullable();
+            $table->string('company_address')->nullable();
+            $table->string('company_phone', 20)->nullable();
+            $table->string('company_email')->nullable();
+            $table->string('company_website')->nullable();
+            $table->string('company_logo')->nullable();
+
+            // SEO Meta
+            $table->string('meta_title')->nullable();
+            $table->text('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
+
+            // Social Media
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('tiktok')->nullable();
+
             // About Section
             $table->string('about_title')->nullable();
             $table->string('about_subtitle')->nullable();
@@ -32,7 +53,7 @@ return new class extends Migration
             $table->string('contact_title')->default('Kotak Layanan STP Dian Mandala');
             $table->string('contact_subtitle')->nullable();
             $table->text('contact_description')->nullable();
-            $table->text('map_embed_url')->nullable();
+            $table->text('contact_map_embed_url')->nullable();
 
             // Footer
             $table->text('footer_description')->nullable();

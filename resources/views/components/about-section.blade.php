@@ -6,9 +6,15 @@
             <!-- Image Column -->
             <div class="relative order-2 lg:order-1" data-aos="fade-right">
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                    @if(homeSettings()->about_image)
+                    <img src="{{ Storage::url(homeSettings()->about_image) }}"
+                         alt="{{ homeSettings()->about_title ?? 'STP Dian Mandala' }}"
+                         class="w-full h-auto">
+                    @else
                     <img src="{{ asset('assets/images/resources/about-four-img-1.jpg') }}"
                          alt="STP Dian Mandala"
                          class="w-full h-auto">
+                    @endif
 
                     <!-- Decorative Elements -->
                     <div class="absolute -top-6 -right-6 w-24 h-24 bg-primary-500 rounded-full opacity-20 blur-2xl"></div>
@@ -28,15 +34,15 @@
             <div class="order-1 lg:order-2" data-aos="fade-left">
                 <div class="mb-6">
                     <span class="inline-block px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-4">
-                        Tentang Kami
+                        {{ homeSettings()->about_subtitle ?? 'Tentang Kami' }}
                     </span>
                     <h2 class="section-title">
-                        STP Dian Mandala Gunung Sitoli Nias
+                        {{ homeSettings()->about_title ?? 'STP Dian Mandala Gunung Sitoli Nias' }}
                     </h2>
                 </div>
 
                 <div class="prose prose-lg max-w-none text-gray-600 mb-8">
-                    {!! company()->description !!}
+                    {!! homeSettings()->about_description ?? company()->description !!}
                 </div>
 
                 <!-- Quick Links -->

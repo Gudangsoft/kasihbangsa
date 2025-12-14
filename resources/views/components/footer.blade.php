@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <p class="text-gray-300 mb-6 leading-relaxed text-white">
-                    Sekolah Tinggi Pastoral Dian Mandala adalah lembaga pendidikan tinggi Katolik yang berkomitmen untuk membentuk generasi muda yang beriman, berilmu, dan berkarakter.
+                    {{ homeSettings()->footer_description ?? 'Sekolah Tinggi Pastoral Dian Mandala adalah lembaga pendidikan tinggi Katolik yang berkomitmen untuk membentuk generasi muda yang beriman, berilmu, dan berkarakter.' }}
                 </p>
 
                 <!-- Social Media -->
@@ -144,7 +144,7 @@
         <div class="container py-6">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <p class="text-sm text-gray-300 text-center md:text-left">
-                    &copy; {{ date('Y') }} {{ company()->name }}. All rights reserved.
+                    {!! homeSettings()->footer_copyright ?? '&copy; ' . date('Y') . ' ' . company()->name . '. All rights reserved.' !!}
                 </p>
                 <div class="flex items-center space-x-6 text-sm">
                     <a href="/page/privacy-policy" class="text-gray-300 hover:text-white transition-colors duration-200">

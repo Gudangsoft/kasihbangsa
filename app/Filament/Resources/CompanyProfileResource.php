@@ -116,4 +116,9 @@ class CompanyProfileResource extends Resource
             'edit' => Pages\EditCompanyProfile::route('/{record}/edit'),
         ];
     }
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
 }

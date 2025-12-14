@@ -2,13 +2,11 @@
 
 // namespace App\Helpers;
 
-use App\Models\CompanyProfile;
+use App\Models\HomeSetting;
 
 function company()
 {
-    $data = CompanyProfile::latest()->first();
-
-    return $data;
+    return HomeSetting::getSettings();
 }
 
 if (!function_exists('isDesktop')) {
