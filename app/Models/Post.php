@@ -84,7 +84,7 @@ class Post extends Model
 
     public function getReadUrlAttribute()
     {
-        return '/read?t=' . $this->slug;
+        return route('detail-berita', $this->slug);
     }
 
     public function getTagAttribute()
