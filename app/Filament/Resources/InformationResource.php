@@ -25,10 +25,10 @@ class InformationResource extends Resource
 {
     protected static ?string $model = Information::class;
     protected static ?int $navigationSort = 4;
-    protected static ?string $navigationLabel = 'Informasi';
+    protected static ?string $navigationLabel = 'Dokumen Informasi';
 
-    protected static ?string $modelLabel = 'Informasi';
-    protected static ?string $pluralModelLabel = 'Informasi';
+    protected static ?string $modelLabel = 'Dokumen Informasi';
+    protected static ?string $pluralModelLabel = 'Dokumen Informasi';
 
     protected static ?string $navigationIcon = 'heroicon-o-information-circle';
 

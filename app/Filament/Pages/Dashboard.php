@@ -2,6 +2,10 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\WelcomeWidget;
+use App\Filament\Widgets\StatsOverview;
+use App\Filament\Widgets\PostsChart;
+use App\Filament\Widgets\InformationChart;
 use App\Filament\Resources\UserResource\Widgets\UserOverview;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Support\Contracts\HasDashboard;
@@ -24,14 +28,18 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
-            AccountWidget::class,
+            // WelcomeWidget::class,
+            // AccountWidget::class,
+            StatsOverview::class,
+            PostsChart::class,
+            InformationChart::class,
             // UserOverview::class,
         ];
     }
 
     public function getColumns(): int | string | array
     {
-        return 1;
+        return 2;
     }
 
     public static function getNavigationIcon(): ?string
