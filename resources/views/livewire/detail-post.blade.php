@@ -1,4 +1,68 @@
 <div>
+    <style>
+        /* TinyMCE Content Styling */
+        .tinymce-content img {
+            max-width: 100%;
+            height: auto;
+            display: inline-block;
+        }
+
+        /* Support for floated images */
+        .tinymce-content img[style*="float: left"],
+        .tinymce-content img[style*="float:left"] {
+            float: left !important;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tinymce-content img[style*="float: right"],
+        .tinymce-content img[style*="float:right"] {
+            float: right !important;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Support for inline images */
+        .tinymce-content p img {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Support for image alignment */
+        .tinymce-content img[style*="display: inline"],
+        .tinymce-content img[style*="display:inline"] {
+            display: inline !important;
+        }
+
+        /* Preserve TinyMCE table styling */
+        .tinymce-content table {
+            width: auto !important;
+            margin: 1rem 0;
+        }
+
+        .tinymce-content table td,
+        .tinymce-content table th {
+            padding: 0.5rem;
+        }
+
+        /* Clear floats after content */
+        .tinymce-content::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Support for figures with images */
+        .tinymce-content figure {
+            display: inline-block;
+            margin: 0;
+        }
+
+        .tinymce-content figure img {
+            display: block;
+        }
+    </style>
+
     <!-- Article Header -->
     <section class="bg-gradient-to-br from-primary-600 to-primary-800 text-white py-16 lg:py-24">
         <div class="container">
@@ -53,7 +117,7 @@
                 </div>
 
                 <!-- Content -->
-                <article class="prose prose-lg max-w-none mb-12">
+                <article class="prose prose-lg max-w-none mb-12 tinymce-content">
                     {!! $post->content !!}
                 </article>
 
@@ -95,7 +159,7 @@
                 </div>
 
                 <!-- Back Button -->
-                <div class="text-center">
+                <div class="text-center mb-16">
                     <a href="/berita" class="btn btn-outline inline-flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
@@ -103,6 +167,46 @@
                         Kembali ke Berita
                     </a>
                 </div>
+
+                <!-- Related Posts Section -->
+                @if($relatedPosts->count() > 0)
+                <div class="border-t border-gray-200 pt-12">
+                    <h2 class="text-2xl md:text-3xl font-heading font-bold mb-8 text-gray-900">
+                        Berita Terkait
+                    </h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach($relatedPosts as $related)
+                        <article class="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300">
+                            <a href="{{ route('detail-berita', $related->slug) }}" class="block">
+                                <div class="aspect-video overflow-hidden bg-gray-100">
+                                    <img src="{{ $related->thumbnail }}"
+                                         alt="{{ $related->title }}"
+                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                                <div class="p-5">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span class="px-3 py-1 bg-primary-50 text-primary-700 text-xs font-medium rounded-full">
+                                            {{ $related->category->name }}
+                                        </span>
+                                        <span class="text-xs text-gray-500">
+                                            {{ $related->publish_at ? \Carbon\Carbon::parse($related->publish_at)->locale('id')->isoFormat('D MMM Y') : '' }}
+                                        </span>
+                                    </div>
+                                    <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                                        {{ $related->title }}
+                                    </h3>
+                                    @if($related->preview)
+                                    <p class="text-sm text-gray-600 line-clamp-2">
+                                        {{ $related->preview }}
+                                    </p>
+                                    @endif
+                                </div>
+                            </a>
+                        </article>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </section>
