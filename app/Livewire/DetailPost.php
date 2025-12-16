@@ -14,13 +14,21 @@ class DetailPost extends Component
     public function mount()
     {
         $this->slug = request()->query('t'); // Ambil parameter dari query string
-        if ($this->slug) {
-            $this->post = Post::where('slug', $this->slug)->firstOrFail();
 
-            $this->title = $this->post->title;
-            $tagsArray = json_encode($this->post->tags, true);
-            $this->tagsString = explode(", ", $tagsArray);
-            // dd($this->tagsString);
+        if (!$this->slug) {
+            abort(404, 'Post tidak ditemukan');
+        }
+
+        $this->post = Post::where('slug', $this->slug)->where('status', true)->firstOrFail();
+
+        $this->title = $this->post->title;
+
+        // Safely handle tags
+        if ($this->post->tags) {
+            $tagsArray = json_decode($this->post->tags, true);
+            $this->tagsString = is_array($tagsArray) ? $tagsArray : explode(", ", $this->post->tags);
+        } else {
+            $this->tagsString = [];
         }
     }
 
@@ -33,9 +41,12 @@ class DetailPost extends Component
             : $contentText;
 
         // Gabungkan tags untuk keywords
-        $keywords = is_array($this->post->tags)
-            ? implode(', ', $this->post->tags)
-            : ($this->post->tags ?? '');
+        $keywords = '';
+        if ($this->post->tags) {
+            $keywords = is_array($this->post->tags)
+                ? implode(', ', $this->post->tags)
+                : (is_string($this->post->tags) ? $this->post->tags : '');
+        }
 
         return view('livewire.detail-post')
             ->layout('components.modern-layout', [

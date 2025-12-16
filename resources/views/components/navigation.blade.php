@@ -14,9 +14,9 @@
 
 <nav x-data="{ mobileMenuOpen: false, scrolled: false }"
      x-init="window.addEventListener('scroll', () => { scrolled = window.pageYOffset > 50 })"
-     :class="scrolled ? 'bg-white shadow-lg' : 'bg-white/98 backdrop-blur-md'"
-     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b"
-     :style="scrolled ? 'border-color: rgba(4, 23, 27, 0.1)' : 'border-color: transparent'">
+     :class="scrolled ? 'backdrop-blur-xl shadow-lg' : 'backdrop-blur-md'"
+     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+     :style="scrolled ? 'background-color: rgba(5, 100, 110, 0.85); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);' : 'background-color: rgba(5, 100, 110);'">
 
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-between h-20">
@@ -37,7 +37,7 @@
                     @if($menu->submenus->count() > 0)
                         <!-- Dropdown Menu -->
                         <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                            <button class="px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:text-primary-700 hover:bg-primary-50/80 transition-all duration-200 flex items-center gap-1 whitespace-nowrap group">
+                            <button class="px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold text-white/90 hover:text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-1 whitespace-nowrap group">
                                 <span>{{ $menu->name }}</span>
                                 <svg class="w-4 h-4 transition-all duration-200 group-hover:text-primary-700" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
@@ -51,11 +51,11 @@
                                  x-transition:leave="transition ease-in duration-150"
                                  x-transition:leave-start="opacity-100 translate-y-0"
                                  x-transition:leave-end="opacity-0 -translate-y-2"
-                                 class="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl ring-1 ring-primary-900 ring-opacity-5 py-2 overflow-hidden"
-                                 style="display: none;">
+                                 class="absolute left-0 mt-2 w-64 rounded-xl shadow-xl ring-1 ring-white/20 py-2 overflow-hidden backdrop-blur-xl"
+                                 style="display: none; background-color: rgba(5, 100, 110, 0.95);">
                                 @foreach($menu->submenus as $submenu)
                                     <a href="{{ $submenu->url }}"
-                                       class="group/item flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100/50 hover:text-primary-800 transition-all duration-200 border-l-2 border-transparent hover:border-primary-600"
+                                       class="group/item flex items-center justify-between px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white transition-all duration-200 border-l-2 border-transparent hover:border-white"
                                        @if(str_starts_with($submenu->url, 'http')) target="_blank" rel="noopener" @endif>
                                         <span class="font-medium">{{ $submenu->name }}</span>
                                         @if(str_starts_with($submenu->url, 'http'))
@@ -70,7 +70,7 @@
                     @else
                         <!-- Regular Menu -->
                         <a href="{{ $menu->url }}"
-                           class="px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:text-primary-700 hover:bg-primary-50/80 transition-all duration-200 whitespace-nowrap {{ request()->is(ltrim($menu->url, '/')) ? 'text-primary-700 bg-primary-50' : '' }}"
+                           class="px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold text-white/90 hover:text-white hover:bg-white/20 transition-all duration-200 whitespace-nowrap {{ request()->is(ltrim($menu->url, '/')) ? 'text-white bg-white/30' : '' }}"
                            @if(str_starts_with($menu->url, 'http')) target="_blank" rel="noopener" @endif>
                             {{ $menu->name }}
                         </a>
@@ -80,7 +80,7 @@
                 @if($hiddenMenus->count() > 0)
                     <!-- Menu Lainnya -->
                     <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                        <button class="px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:text-primary-700 hover:bg-primary-50/80 transition-all duration-200 flex items-center gap-1 whitespace-nowrap group">
+                        <button class="px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold text-white/90 hover:text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-1 whitespace-nowrap group">
                             <span>Lainnya</span>
                             <svg class="w-4 h-4 transition-all duration-200 group-hover:text-primary-700" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
@@ -94,17 +94,17 @@
                              x-transition:leave="transition ease-in duration-150"
                              x-transition:leave-start="opacity-100 translate-y-0"
                              x-transition:leave-end="opacity-0 -translate-y-2"
-                             class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl ring-1 ring-primary-900 ring-opacity-5 py-2 overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto"
-                             style="display: none;">
+                             class="absolute right-0 mt-2 w-64 rounded-xl shadow-xl ring-1 ring-white/20 py-2 overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto backdrop-blur-xl"
+                             style="display: none; background-color: rgba(5, 100, 110, 0.95);">
                             @foreach($hiddenMenus as $menu)
                                 @if($menu->submenus->count() > 0)
                                     <div class="px-3 py-1.5">
-                                        <div class="text-xs font-bold text-primary-800 uppercase tracking-wider mb-1 px-1">
+                                        <div class="text-xs font-bold text-white uppercase tracking-wider mb-1 px-1">
                                             {{ $menu->name }}
                                         </div>
                                         @foreach($menu->submenus as $submenu)
                                             <a href="{{ $submenu->url }}"
-                                               class="group/item flex items-center justify-between px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100/50 hover:text-primary-800 transition-all duration-200 rounded-lg"
+                                               class="group/item flex items-center justify-between px-3 py-2 text-sm text-white/90 hover:bg-white/20 hover:text-white transition-all duration-200 rounded-lg"
                                                @if(str_starts_with($submenu->url, 'http')) target="_blank" rel="noopener" @endif>
                                                 <span class="font-medium">{{ $submenu->name }}</span>
                                                 @if(str_starts_with($submenu->url, 'http'))
@@ -120,7 +120,7 @@
                                     @endif
                                 @else
                                     <a href="{{ $menu->url }}"
-                                       class="group/item flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100/50 hover:text-primary-800 transition-all duration-200 border-l-2 border-transparent hover:border-primary-600"
+                                       class="group/item flex items-center justify-between px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white transition-all duration-200 border-l-2 border-transparent hover:border-white"
                                        @if(str_starts_with($menu->url, 'http')) target="_blank" rel="noopener" @endif>
                                         <span class="font-medium">{{ $menu->name }}</span>
                                         @if(str_starts_with($menu->url, 'http'))
@@ -134,20 +134,55 @@
                         </div>
                     </div>
                 @endif
-            </div>
 
                 <!-- Search Button -->
                 <a href="{{ route('search') }}"
-                   class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary-700 hover:bg-primary-50/80 transition-all duration-200"
+                   class="hidden lg:block px-3 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/20 transition-all duration-200"
                    title="Pencarian">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                 </a>
 
+                <!-- Auth Buttons Desktop -->
+                <div class="hidden lg:flex items-center gap-2 ml-2">
+                    @auth
+                        <!-- Dashboard Button -->
+                        <a href="/admin"
+                           class="px-4 py-2 rounded-lg text-sm font-semibold text-white/90 hover:text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 whitespace-nowrap">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+
+                        <!-- Logout Button -->
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit"
+                                    class="px-4 py-2 rounded-lg text-sm font-semibold bg-white/10 text-white hover:bg-white/20 border border-white/30 transition-all duration-200 flex items-center gap-2 whitespace-nowrap">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </form>
+                    @else
+                        <!-- Login Button -->
+                        <a href="/admin/login"
+                           class="px-4 py-2 rounded-lg text-sm font-semibold bg-white text-primary-600 hover:bg-white/90 transition-all duration-200 flex items-center gap-2 whitespace-nowrap shadow-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+                            <span>Login</span>
+                        </a>
+                    @endauth
+                </div>
+            </div>
+
             <!-- Mobile Menu Button -->
             <button @click="mobileMenuOpen = !mobileMenuOpen"
-                    class="lg:hidden p-2.5 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-gray-200"
+                    class="lg:hidden p-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all duration-200 border border-white/30"
                     aria-label="Toggle menu">
                 <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
@@ -225,6 +260,45 @@
                         </a>
                     @endif
                 @endforeach
+
+                <!-- Auth Buttons Mobile -->
+                @auth
+                    <!-- Dashboard Link Mobile -->
+                    <a href="/admin"
+                       class="flex items-center justify-between px-4 py-3.5 rounded-xl text-gray-800 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 font-semibold shadow-sm border border-gray-100 bg-white">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                            </svg>
+                            Dashboard
+                        </span>
+                    </a>
+
+                    <!-- Logout Button Mobile -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                                class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-white bg-red-600 hover:bg-red-700 transition-all duration-200 font-semibold shadow-sm">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                Logout
+                            </span>
+                        </button>
+                    </form>
+                @else
+                    <!-- Login Button Mobile -->
+                    <a href="/admin/login"
+                       class="flex items-center justify-between px-4 py-3.5 rounded-xl text-white bg-primary-600 hover:bg-primary-700 transition-all duration-200 font-semibold shadow-lg">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+                            Login
+                        </span>
+                    </a>
+                @endauth
             </div>
         </div>
     </div>
