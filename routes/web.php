@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/search', GlobalSearch::class)->name('search');
 Route::get('berita', PostItems::class)->name('berita');
-Route::get('read', DetailPost::class)->name('detail-berita');
+Route::get('berita/{slug}', DetailPost::class)->name('detail-berita');
 
 Route::get('/page/{slug}', DetailPage::class)->name('detail-page');
 Route::get('/informasi', InformationItems::class)->name('informasi');
