@@ -40,7 +40,7 @@
         }" class="relative" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()" x-ref="heroSection">
 
             <!-- Slides -->
-            <div class="relative h-[500px] md:h-[600px] lg:h-[650px]">
+            <div class="relative h-[250px] md:h-[300px] lg:h-[325px]">
                 @foreach($slides as $index => $slide)
                 <div x-show="currentSlide === {{ $index }}"
                      x-transition:enter="transition ease-out duration-700"
@@ -119,7 +119,7 @@
         </div>
     @else
         <!-- Default Hero without Slides -->
-        <div class="relative h-[500px] md:h-[600px] lg:h-[650px] flex items-center">
+        <div class="relative h-[250px] md:h-[300px] lg:h-[325px] flex items-center">
             <div class="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-800"></div>
             <div class="relative container mx-auto px-4 text-white text-center">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 animate-slide-up">
@@ -142,7 +142,7 @@
 
     <!-- Decorative Wave -->
     <div class="absolute bottom-0 left-0 right-0">
-        <svg class="w-full h-16 md:h-24" preserveAspectRatio="none" viewBox="0 0 1440 74" fill="#05646e">
+        <svg class="w-full h-8 md:h-12" preserveAspectRatio="none" viewBox="0 0 1440 74" fill="#05646e">
             <path d="M0,32L80,37.3C160,43,320,53,480,56C640,59,800,53,960,48C1120,43,1280,37,1360,34.7L1440,32L1440,74L1360,74C1280,74,1120,74,960,74C800,74,640,74,480,74C320,74,160,74,80,74L0,74Z"></path>
         </svg>
     </div>
