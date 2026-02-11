@@ -27,6 +27,16 @@ Route::get('berita/{slug}', DetailPost::class)->name('detail-berita');
 Route::get('/page/{slug}', DetailPage::class)->name('detail-page');
 Route::get('/informasi', InformationItems::class)->name('informasi');
 Route::get('/informasi/{slug}', InformationList::class)->name('information-list');
+Route::get('/informasi/download/{id}', function ($id) {
+    $information = \App\Models\Information::findOrFail($id);
+    $filePath = storage_path('app/public/' . $information->file);
+
+    if (!file_exists($filePath)) {
+        abort(404, 'File tidak ditemukan');
+    }
+
+    return response()->download($filePath);
+})->name('information-download');
 Route::get('gallery', GalleryItems::class)->name('galleries');
 Route::get('gallery/{slug}', DetailGallery::class)->name('detail-gallery');
 Route::get('/kerjasama', KerjaSama::class)->name('kerjasama');

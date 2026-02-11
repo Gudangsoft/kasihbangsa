@@ -14,6 +14,11 @@ class InformationList extends Component
     public function mount($slug)
     {
         $category = InformationCategory::where('slug', $slug)->where('status', true)->first();
+
+        if (!$category) {
+            abort(404, 'Kategori informasi tidak ditemukan');
+        }
+
         $this->title = 'Informasi '.ucwords($category->name);
         $this->items = Information::where('category_id', $category->id)->where('status', true)->get()->toArray();
     }

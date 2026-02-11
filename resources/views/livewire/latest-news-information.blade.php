@@ -88,7 +88,7 @@
 
                     <div class="space-y-4">
                         @foreach($latestInformations as $info)
-                            <a href="{{ route('information-list', $info->slug) }}"
+                            <a href="{{ route('information-download', $info->id) }}"
                                class="block group bg-white rounded-xl p-4 border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all duration-300">
                                 <div class="flex gap-4">
                                     <!-- Content -->
