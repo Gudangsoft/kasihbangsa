@@ -6,6 +6,9 @@
 /storage/*.key
 /storage/pail
 /vendor
+/lpm.stpdianmandala.ac.id
+/prodi.stpdianmandala.ac.id
+/prodipkk.stpdianmandala.ac.id
 .env
 .htaccess
 .env.backup
