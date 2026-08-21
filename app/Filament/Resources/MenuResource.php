@@ -49,6 +49,14 @@ class MenuResource extends Resource
                     ->options(Menu::where('submenu', 0)->get()->pluck('name', 'id'))
                     ->searchable()
                     ->nullable(),
+                Select::make('category')
+                    ->label('Tampil di')
+                    ->options([
+                        'home' => 'Menu Utama (Header)',
+                        'footer' => 'Link Custom (Footer)',
+                    ])
+                    ->default('home')
+                    ->required(),
                 Toggle::make('status')
                     ->label('is Published ?')
                     ->default(true),
@@ -69,11 +77,23 @@ class MenuResource extends Resource
                 TextColumn::make('url')->label('Slug / Url'),
                 TextColumn::make('number')->label('Number'),
                 TextColumn::make('parent')->label('Parent Menu')->badge()->color('warning'),
+                TextColumn::make('category')->label('Tampil di')->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'footer' => 'Footer',
+                        default => 'Header',
+                    })
+                    ->color(fn (string $state): string => $state === 'footer' ? 'success' : 'primary'),
                 BooleanColumn::make('submenu')->label('is Sub Menu'),
                 BooleanColumn::make('status')->label('is Active'),
             ])
             ->defaultSort('number', 'asc')
             ->filters([
+                Tables\Filters\SelectFilter::make('category')
+                    ->label('Tampil di')
+                    ->options([
+                        'home' => 'Header',
+                        'footer' => 'Footer',
+                    ]),
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
