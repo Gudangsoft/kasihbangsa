@@ -3,11 +3,19 @@
         ->where('status', 1)
         ->orderBy('number')
         ->get();
+    $footerInternalLinks = $footerCustomLinks->filter(fn ($link) => !str_starts_with($link->url, 'http'));
+    $footerExternalLinks = $footerCustomLinks->filter(fn ($link) => str_starts_with($link->url, 'http'));
+    $footerExtraColumns = ($footerInternalLinks->count() > 0 ? 1 : 0) + ($footerExternalLinks->count() > 0 ? 1 : 0);
+    $footerGridColsClass = match ($footerExtraColumns) {
+        2 => 'lg:grid-cols-6',
+        1 => 'lg:grid-cols-5',
+        default => 'lg:grid-cols-4',
+    };
 @endphp
 <footer class="bg-primary-700 text-white">
     <!-- Main Footer -->
     <div class="container py-12 lg:py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 {{ $footerCustomLinks->count() > 0 ? 'lg:grid-cols-5' : 'lg:grid-cols-4' }} gap-8 lg:gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 {{ $footerGridColsClass }} gap-8 lg:gap-12">
 
             <!-- About Section -->
             <div class="lg:col-span-2">
@@ -68,15 +76,32 @@
                 </div>
             </div>
 
-            <!-- Custom Links -->
-            @if($footerCustomLinks->count() > 0)
+            <!-- Internal Links -->
+            @if($footerInternalLinks->count() > 0)
             <div>
-                <h3 class="text-white font-heading font-semibold text-lg mb-4">Link Lainnya</h3>
+                <h3 class="text-white font-heading font-semibold text-lg mb-4">Link Internal</h3>
                 <ul class="space-y-3">
-                    @foreach($footerCustomLinks as $link)
+                    @foreach($footerInternalLinks as $link)
                     <li>
                         <a href="{{ $link->url }}"
-                           @if(str_starts_with($link->url, 'http')) target="_blank" rel="noopener" @endif
+                           class="hover:text-white transition-colors duration-200 flex items-center group">
+                            <span class="w-0 group-hover:w-2 h-0.5 bg-primary-300 mr-0 group-hover:mr-2 transition-all duration-200"></span>
+                            {{ $link->name }}
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+            <!-- External Links -->
+            @if($footerExternalLinks->count() > 0)
+            <div>
+                <h3 class="text-white font-heading font-semibold text-lg mb-4">Link External</h3>
+                <ul class="space-y-3">
+                    @foreach($footerExternalLinks as $link)
+                    <li>
+                        <a href="{{ $link->url }}" target="_blank" rel="noopener"
                            class="hover:text-white transition-colors duration-200 flex items-center group">
                             <span class="w-0 group-hover:w-2 h-0.5 bg-primary-300 mr-0 group-hover:mr-2 transition-all duration-200"></span>
                             {{ $link->name }}
