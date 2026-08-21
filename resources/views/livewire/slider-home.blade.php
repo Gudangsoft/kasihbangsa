@@ -40,7 +40,7 @@
         }" class="relative" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()" x-ref="heroSection">
 
             <!-- Slides -->
-            <div class="relative h-[250px] md:h-[300px] lg:h-[325px]">
+            <div class="relative w-full aspect-[2/1] max-h-[720px]">
                 @foreach($slides as $index => $slide)
                 <div x-show="currentSlide === {{ $index }}"
                      x-transition:enter="transition ease-out duration-700"
@@ -53,35 +53,10 @@
                      style="display: {{ $index === 0 ? 'block' : 'none' }}">
 
                     <!-- Background Image -->
-                    <div class="absolute inset-0 overflow-hidden">
+                    <div class="absolute inset-0 overflow-hidden bg-navy-900">
                         <img src="{{ asset('storage/' . $slide['image']) }}"
                              alt="{{ $slide['title'] }}"
-                             class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="relative h-full container mx-auto px-4 flex items-center">
-                        <div class="max-w-3xl text-white animate-slide-up">
-                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight">
-                                {{ $slide['title'] }}
-                            </h1>
-
-                            @if(!empty($slide['description']))
-                            <p class="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
-                                {{ Str::limit(strip_tags($slide['description']), 200) }}
-                            </p>
-                            @endif
-
-                            <div class="flex flex-wrap gap-4">
-                                <a href="#about" class="btn btn-primary bg-white text-primary-600 hover:bg-gray-100 shadow-xl">
-                                    Selengkapnya
-                                </a>
-                                <a href="/#contact" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary-600 shadow-lg">
-                                    Hubungi Kami
-                                </a>
-                            </div>
-                        </div>
+                             class="w-full h-full object-cover object-center">
                     </div>
                 </div>
                 @endforeach
@@ -140,10 +115,6 @@
         </div>
     @endif
 
-    <!-- Decorative Wave -->
-    <div class="absolute bottom-0 left-0 right-0">
-        <svg class="w-full h-8 md:h-12" preserveAspectRatio="none" viewBox="0 0 1440 74" fill="#05646e">
-            <path d="M0,32L80,37.3C160,43,320,53,480,56C640,59,800,53,960,48C1120,43,1280,37,1360,34.7L1440,32L1440,74L1360,74C1280,74,1120,74,960,74C800,74,640,74,480,74C320,74,160,74,80,74L0,74Z"></path>
-        </svg>
-    </div>
+    <!-- Decorative Bottom Bar -->
+    <div class="absolute bottom-0 left-0 right-0 h-1.5 md:h-2 bg-navy-900"></div>
 </section>

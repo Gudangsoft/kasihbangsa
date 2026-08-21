@@ -3,6 +3,9 @@
     <!-- Hero Slider -->
     <livewire:slider-home />
 
+    <!-- Quick Links / Tombol Layanan -->
+    <livewire:quick-links />
+
     <!-- Latest News & Information Section -->
     <livewire:latest-news-information />
 
