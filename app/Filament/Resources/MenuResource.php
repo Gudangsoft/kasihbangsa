@@ -49,10 +49,17 @@ class MenuResource extends Resource
                     ->required()
                     ->live(),
                 TextInput::make('url')
-                    ->label('Url/Slug')
-                    ->helperText(fn (Forms\Get $get): ?string => $get('category') === 'footer'
-                        ? 'Menentukan link ini masuk kolom footer yang mana: diawali "http://" atau "https://" → tampil di "Link External". Selain itu (contoh: /halaman atau #) → tampil di "Link Internal".'
-                        : null),
+                    ->label('Url/Slug'),
+                Select::make('link_type')
+                    ->label('Jenis Link')
+                    ->helperText('Menentukan link ini masuk kolom "Link Internal" atau "Link External" di footer, terlepas dari format URL-nya (boleh sama-sama https:// dan buka tab baru).')
+                    ->options([
+                        'internal' => 'Link Internal (contoh: PMB, SIAKAD, Perpustakaan milik sendiri)',
+                        'external' => 'Link External (contoh: LLDIKTI, situs pihak lain)',
+                    ])
+                    ->default('internal')
+                    ->required()
+                    ->visible(fn (Forms\Get $get): bool => $get('category') === 'footer'),
                 Toggle::make('submenu')
                     ->label('Sub Menu ?')
                     ->default(false),
@@ -87,6 +94,12 @@ class MenuResource extends Resource
                         default => 'Header',
                     })
                     ->color(fn (string $state): string => $state === 'footer' ? 'success' : 'primary'),
+                TextColumn::make('link_type')->label('Jenis Link')->badge()
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'external' => 'External',
+                        default => 'Internal',
+                    })
+                    ->color(fn (?string $state): string => $state === 'external' ? 'warning' : 'gray'),
                 BooleanColumn::make('submenu')->label('is Sub Menu'),
                 BooleanColumn::make('status')->label('is Active'),
             ])

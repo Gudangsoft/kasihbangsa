@@ -3,8 +3,8 @@
         ->where('status', 1)
         ->orderBy('number')
         ->get();
-    $footerInternalLinks = $footerCustomLinks->filter(fn ($link) => !str_starts_with($link->url, 'http'));
-    $footerExternalLinks = $footerCustomLinks->filter(fn ($link) => str_starts_with($link->url, 'http'));
+    $footerInternalLinks = $footerCustomLinks->filter(fn ($link) => $link->link_type !== 'external');
+    $footerExternalLinks = $footerCustomLinks->filter(fn ($link) => $link->link_type === 'external');
     $footerExtraColumns = ($footerInternalLinks->count() > 0 ? 1 : 0) + ($footerExternalLinks->count() > 0 ? 1 : 0);
     $footerGridColsClass = match ($footerExtraColumns) {
         2 => 'lg:grid-cols-6',
@@ -83,7 +83,7 @@
                 <ul class="space-y-3">
                     @foreach($footerInternalLinks as $link)
                     <li>
-                        <a href="{{ $link->url }}"
+                        <a href="{{ $link->url }}" target="_blank" rel="noopener"
                            class="hover:text-white transition-colors duration-200 flex items-center group">
                             <span class="w-0 group-hover:w-2 h-0.5 bg-primary-300 mr-0 group-hover:mr-2 transition-all duration-200"></span>
                             {{ $link->name }}
