@@ -40,7 +40,7 @@
         }" class="relative" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()" x-ref="heroSection">
 
             <!-- Slides -->
-            <div class="relative w-full aspect-[2/1] max-h-[720px]">
+            <div class="relative w-full aspect-[25/13] max-h-[1000px]">
                 @foreach($slides as $index => $slide)
                 <div x-show="currentSlide === {{ $index }}"
                      x-transition:enter="transition ease-out duration-700"
@@ -56,7 +56,7 @@
                     <div class="absolute inset-0 overflow-hidden bg-navy-900">
                         <img src="{{ asset('storage/' . $slide['image']) }}"
                              alt="{{ $slide['title'] }}"
-                             class="w-full h-full object-cover object-center">
+                             class="w-full h-full object-cover object-top">
                     </div>
                 </div>
                 @endforeach
