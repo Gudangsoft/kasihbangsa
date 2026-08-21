@@ -39,8 +39,20 @@ class MenuResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name'),
+                Select::make('category')
+                    ->label('Tampil di')
+                    ->options([
+                        'home' => 'Menu Utama (Header)',
+                        'footer' => 'Link Custom (Footer)',
+                    ])
+                    ->default('home')
+                    ->required()
+                    ->live(),
                 TextInput::make('url')
-                    ->label('Url/Slug'),
+                    ->label('Url/Slug')
+                    ->helperText(fn (Forms\Get $get): ?string => $get('category') === 'footer'
+                        ? 'Menentukan link ini masuk kolom footer yang mana: diawali "http://" atau "https://" → tampil di "Link External". Selain itu (contoh: /halaman atau #) → tampil di "Link Internal".'
+                        : null),
                 Toggle::make('submenu')
                     ->label('Sub Menu ?')
                     ->default(false),
@@ -49,14 +61,6 @@ class MenuResource extends Resource
                     ->options(Menu::where('submenu', 0)->get()->pluck('name', 'id'))
                     ->searchable()
                     ->nullable(),
-                Select::make('category')
-                    ->label('Tampil di')
-                    ->options([
-                        'home' => 'Menu Utama (Header)',
-                        'footer' => 'Link Custom (Footer)',
-                    ])
-                    ->default('home')
-                    ->required(),
                 Toggle::make('status')
                     ->label('is Published ?')
                     ->default(true),
