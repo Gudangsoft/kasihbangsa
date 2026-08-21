@@ -7,7 +7,7 @@
                     {{ $categoryName ? 'Informasi ' . $categoryName : 'Semua Informasi' }}
                 </h1>
                 <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                    Informasi dan pengumuman penting dari STP Dian Mandala
+                    Informasi dan pengumuman penting dari {{ company()->name }}
                 </p>
             </div>
 

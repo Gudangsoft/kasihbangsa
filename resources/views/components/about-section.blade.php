@@ -8,11 +8,11 @@
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl">
                     @if(homeSettings()->about_image)
                     <img src="{{ Storage::url(homeSettings()->about_image) }}"
-                         alt="{{ homeSettings()->about_title ?? 'STP Dian Mandala' }}"
+                         alt="{{ homeSettings()->about_title ?? company()->name }}"
                          class="w-full h-auto">
                     @else
                     <img src="{{ asset('assets/images/resources/about-four-img-1.jpg') }}"
-                         alt="STP Dian Mandala"
+                         alt="{{ company()->name }}"
                          class="w-full h-auto">
                     @endif
 
@@ -37,7 +37,7 @@
                         {{ homeSettings()->about_subtitle ?? 'Tentang Kami' }}
                     </span>
                     <h2 class="section-title">
-                        {{ homeSettings()->about_title ?? 'STP Dian Mandala Gunung Sitoli Nias' }}
+                        {{ homeSettings()->about_title ?? company()->name }}
                     </h2>
                 </div>
 

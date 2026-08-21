@@ -1,4 +1,4 @@
-<x-modern-layout title="Beranda" description="STP Dian Mandala Gunung Sitoli Nias - Sekolah Tinggi Pastoral yang berkomitmen untuk pendidikan berkualitas">
+<x-modern-layout title="Beranda" :description="company()->description ?? (company()->name . ' - berkomitmen untuk pendidikan berkualitas')">
 
     <!-- Hero Slider -->
     <livewire:slider-home />

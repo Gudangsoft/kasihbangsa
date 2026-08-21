@@ -98,10 +98,10 @@
             <div class="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-800"></div>
             <div class="relative container mx-auto px-4 text-white text-center">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 animate-slide-up">
-                    Selamat Datang di STP Dian Mandala
+                    Selamat Datang di {{ company()->name }}
                 </h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto animate-fade-in">
-                    Sekolah Tinggi Pastoral Dian Mandala Gunung Sitoli - Membentuk Generasi Beriman, Berilmu, dan Berkarakter
+                    {{ company()->description ?? 'Membentuk Generasi Beriman, Berilmu, dan Berkarakter' }}
                 </p>
                 <div class="flex flex-wrap gap-4 justify-center">
                     <a href="#about" class="btn btn-primary bg-white text-primary-600 hover:bg-gray-100">

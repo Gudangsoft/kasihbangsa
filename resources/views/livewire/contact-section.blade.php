@@ -11,7 +11,7 @@
                             Hubungi Kami
                         </span>
                         <h2 class="section-title">
-                            {{ homeSettings()->contact_title ?? 'Kotak Layanan STP Dian Mandala' }}
+                            {{ homeSettings()->contact_title ?? 'Kotak Layanan ' . company()->name }}
                         </h2>
                         <p class="text-gray-600 mt-4">
                             {{ homeSettings()->contact_description ?? 'Kirimkan pesan kepada kami, kami akan membalas Anda melalui email dalam waktu 24 jam.' }}

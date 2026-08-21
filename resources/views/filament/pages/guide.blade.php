@@ -113,7 +113,7 @@
                 <svg class="guide-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                Selamat Datang di Dashboard STP Dian Mandala
+                Selamat Datang di Dashboard {{ company()->name }}
             </h3>
             <p>Dashboard ini dirancang untuk memudahkan Anda dalam mengelola konten website. Panduan ini akan membantu Anda memahami setiap fitur dan fungsi yang tersedia.</p>
             <div class="info-box">
@@ -518,7 +518,7 @@
                 <strong>Versi Panduan:</strong> 1.0 | <strong>Terakhir Diperbarui:</strong> {{ now()->format('d F Y') }}
             </p>
             <p class="text-center text-sm text-gray-500 mt-2">
-                © {{ now()->year }} STP Dian Mandala Gunungsitoli. All rights reserved.
+                © {{ now()->year }} {{ company()->name }}. All rights reserved.
             </p>
         </div>
     </div>

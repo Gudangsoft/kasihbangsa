@@ -8,10 +8,8 @@
     <title>{{ $title }} | {{ company()->name }}</title>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/icon/apple-icon-180x180.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/icon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/icon/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ asset('assets/images/icon/manifest.json') }}">
+    <link rel="icon" type="image/png" href="{{ company()->image }}">
+    <link rel="apple-touch-icon" href="{{ company()->image }}">
     <meta name="theme-color" content="#002147">
 
     <!-- SEO Meta Tags -->

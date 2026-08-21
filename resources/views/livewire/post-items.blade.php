@@ -6,7 +6,7 @@
                 Berita & Informasi
             </h1>
             <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                Ikuti perkembangan dan kegiatan terbaru di STP Dian Mandala
+                Ikuti perkembangan dan kegiatan terbaru di {{ company()->name }}
             </p>
         </div>
     </section>

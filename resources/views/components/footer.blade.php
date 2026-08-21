@@ -8,12 +8,14 @@
                 <div class="flex items-center space-x-3 mb-4">
                     <img src="{{ company()->image }}" alt="{{ company()->name }}" class="h-12 w-auto">
                     <div>
-                        <h3 class="text-white font-heading font-bold text-lg">STP Dian Mandala</h3>
-                        <p class="text-sm text-primary-200">Gunung Sitoli, Nias</p>
+                        <h3 class="text-white font-heading font-bold text-lg">{{ company()->name }}</h3>
+                        @if(company()->address)
+                        <p class="text-sm text-primary-200">{{ Str::limit(company()->address, 40) }}</p>
+                        @endif
                     </div>
                 </div>
                 <p class="text-gray-300 mb-6 leading-relaxed text-white">
-                    {{ homeSettings()->footer_description ?? 'Sekolah Tinggi Pastoral Dian Mandala adalah lembaga pendidikan tinggi Katolik yang berkomitmen untuk membentuk generasi muda yang beriman, berilmu, dan berkarakter.' }}
+                    {{ homeSettings()->footer_description ?? (company()->description ?? company()->name . ' adalah lembaga pendidikan tinggi yang berkomitmen untuk membentuk generasi muda yang beriman, berilmu, dan berkarakter.') }}
                 </p>
 
                 <!-- Social Media -->

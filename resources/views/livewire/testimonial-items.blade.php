@@ -9,7 +9,7 @@
                 Pendapat Mereka Tentang Kami
             </h2>
             <p class="section-subtitle max-w-2xl mx-auto">
-                Testimoni dari alumni yang telah merasakan pendidikan di STP Dian Mandala
+                Testimoni dari alumni yang telah merasakan pendidikan di {{ company()->name }}
             </p>
         </div>
 
