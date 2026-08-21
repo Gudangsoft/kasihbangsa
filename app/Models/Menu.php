@@ -19,8 +19,11 @@ class Menu extends Model
 
     public function getParentAttribute()
     {
-        $menu = $this->parent_id == 0 ? null : Menu::find($this->parent_id)->name;
-        return $menu;
+        if ($this->parent_id == 0) {
+            return null;
+        }
+
+        return Menu::find($this->parent_id)?->name;
     }
 
     public function submenus()
