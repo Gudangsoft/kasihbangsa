@@ -10,7 +10,7 @@
 /prodi.stpdianmandala.ac.id
 /prodipkk.stpdianmandala.ac.id
 .env
-.htaccess
+/.htaccess
 .env.backup
 .env.production
 .phpactor.json
