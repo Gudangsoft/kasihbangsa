@@ -5,12 +5,14 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BannerResource\Pages;
 use App\Models\Banner;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -21,6 +23,14 @@ class BannerResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-photo';
     // protected static ?string $navigationGroup = 'Management';
     protected static ?int $navigationSort = 5;
+
+    public static function getPlacementOptions(): array
+    {
+        return [
+            'hero' => 'Slider Utama (Hero)',
+            'about' => 'Bagian Tentang Kami',
+        ];
+    }
 
     public static function form(Form $form): Form
     {
@@ -44,6 +54,11 @@ class BannerResource extends Resource
                     ->type('url')
                     ->required(),
                 Textarea::make('description'),
+                Select::make('placement')
+                    ->label('Lokasi Penempatan')
+                    ->options(static::getPlacementOptions())
+                    ->default('hero')
+                    ->required(),
                 Toggle::make('status')->default(true)
             ])->columns(1);
     }
@@ -56,10 +71,19 @@ class BannerResource extends Resource
                 TextColumn::make('url')
                     ->url(fn($state): string => $state)
                     ->openUrlInNewTab(),
+                BadgeColumn::make('placement')
+                    ->label('Lokasi')
+                    ->formatStateUsing(fn (string $state): string => static::getPlacementOptions()[$state] ?? $state)
+                    ->colors([
+                        'primary' => 'hero',
+                        'success' => 'about',
+                    ]),
                 Tables\Columns\BooleanColumn::make('status'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('placement')
+                    ->label('Lokasi Penempatan')
+                    ->options(static::getPlacementOptions()),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()

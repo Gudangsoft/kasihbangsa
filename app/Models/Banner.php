@@ -29,10 +29,12 @@ class Banner extends Model
     {
         static::saved(function () {
             Cache::forget('slider_home_slides');
+            Cache::forget('about_slider_slides');
         });
 
         static::deleted(function () {
             Cache::forget('slider_home_slides');
+            Cache::forget('about_slider_slides');
         });
     }
 

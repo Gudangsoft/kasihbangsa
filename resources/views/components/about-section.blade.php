@@ -6,15 +6,7 @@
             <!-- Image Column -->
             <div class="relative order-2 lg:order-1" data-aos="fade-right">
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                    @if(homeSettings()->about_image)
-                    <img src="{{ Storage::url(homeSettings()->about_image) }}"
-                         alt="{{ homeSettings()->about_title ?? company()->name }}"
-                         class="w-full h-auto">
-                    @else
-                    <img src="{{ asset('assets/images/resources/about-four-img-1.jpg') }}"
-                         alt="{{ company()->name }}"
-                         class="w-full h-auto">
-                    @endif
+                    <livewire:about-slider />
 
                     <!-- Decorative Elements -->
                     <div class="absolute -top-6 -right-6 w-24 h-24 bg-primary-500 rounded-full opacity-20 blur-2xl"></div>

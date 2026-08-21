@@ -15,6 +15,7 @@ class SliderHome extends Component
         $this->slides = Cache::rememberForever('slider_home_slides', function () {
             return Banner::with('getAdd')
                 ->where('status', true)
+                ->where('placement', 'hero')
                 ->limit(4)
                 ->get()
                 ->toArray();
