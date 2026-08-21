@@ -277,7 +277,14 @@ class HomeSettingResource extends Resource
                                             ->label('URL Embed Google Maps')
                                             ->rows(3)
                                             ->placeholder('https://www.google.com/maps/embed?pb=...')
-                                            ->helperText('Masukkan URL embed dari Google Maps. Cara: Buka Google Maps > Pilih lokasi > Share > Embed a map > Copy HTML')
+                                            ->helperText('Boleh tempel URL saja, atau tempel langsung kode HTML lengkap dari Google Maps (Bagikan > Sematkan peta > Salin HTML) — URL-nya akan diambil otomatis.')
+                                            ->dehydrateStateUsing(function (?string $state) {
+                                                if ($state && preg_match('/<iframe[^>]*\ssrc="([^"]+)"/i', $state, $matches)) {
+                                                    return html_entity_decode($matches[1]);
+                                                }
+
+                                                return $state;
+                                            })
                                             ->columnSpanFull(),
                                     ]),
                             ]),
