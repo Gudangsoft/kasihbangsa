@@ -100,6 +100,13 @@ class HomeSettingResource extends Resource
                                             ->label('Meta Description')
                                             ->rows(3)
                                             ->columnSpanFull(),
+
+                                        Forms\Components\TextInput::make('google_analytics_id')
+                                            ->label('Google Analytics ID')
+                                            ->placeholder('G-XXXXXXXXXX')
+                                            ->helperText('ID Google Analytics (GA4). Kosongkan jika belum ingin memasang tracking.')
+                                            ->maxLength(255)
+                                            ->columnSpanFull(),
                                     ]),
 
                                 Forms\Components\Section::make('Media Sosial')

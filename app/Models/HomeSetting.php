@@ -20,6 +20,7 @@ class HomeSetting extends Model
         'meta_title',
         'meta_keywords',
         'meta_description',
+        'google_analytics_id',
         // Social Media
         'facebook',
         'instagram',

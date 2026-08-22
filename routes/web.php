@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TiktokController;
 use App\Http\Controllers\UserController;
 use App\Livewire\DetailGallery;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home-new');
 });
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('/search', GlobalSearch::class)->name('search');
 Route::get('berita', PostItems::class)->name('berita');

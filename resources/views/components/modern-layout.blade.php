@@ -40,6 +40,17 @@
     <!-- Fancybox CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 
+    <!-- Google Analytics -->
+    @if(homeSettings()->google_analytics_id)
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ homeSettings()->google_analytics_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ homeSettings()->google_analytics_id }}');
+    </script>
+    @endif
+
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
