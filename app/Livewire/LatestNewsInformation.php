@@ -12,7 +12,7 @@ class LatestNewsInformation extends Component
     {
         $latestPosts = Post::where('status', true)
             ->with('category')
-            ->latest()
+            ->latest('publish_at')
             ->limit(4)
             ->get();
 
