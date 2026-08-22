@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Livewire\DetailGallery;
 use App\Livewire\DetailPage;
 use App\Livewire\DetailPost;
+use App\Livewire\DosenDetail;
+use App\Livewire\DosenItems;
 use App\Livewire\GalleryItems;
 use App\Livewire\GlobalSearch;
 use App\Livewire\InformationItems;
@@ -42,6 +44,8 @@ Route::get('/informasi/download/{id}', function ($id) {
 })->name('information-download');
 Route::get('gallery', GalleryItems::class)->name('galleries');
 Route::get('gallery/{slug}', DetailGallery::class)->name('detail-gallery');
+Route::get('/dosen', DosenItems::class)->name('dosen');
+Route::get('/dosen/{slug}', DosenDetail::class)->name('dosen-detail');
 Route::get('/kerjasama', KerjaSama::class)->name('kerjasama');
 Route::get('/testimoni', TestimonialList::class)->name('testimoni');
 // });
