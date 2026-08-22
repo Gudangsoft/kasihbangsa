@@ -22,9 +22,22 @@
                    data-aos="fade-up"
                    data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
-                        <img src="/storage/{{ $item['images'][0]['image_path'] }}"
-                             alt="{{ $item['title'] }}"
-                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                        @if(($item['type'] ?? 'photo') === 'video')
+                            <img src="{{ $item['youtube_thumbnail_url'] }}"
+                                 alt="{{ $item['title'] }}"
+                                 class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                                    <svg class="w-6 h-6 text-red-600 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        @else
+                            <img src="/storage/{{ $item['images'][0]['image_path'] ?? '' }}"
+                                 alt="{{ $item['title'] }}"
+                                 class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                        @endif
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                     </div>
 

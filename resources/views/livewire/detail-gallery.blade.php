@@ -42,7 +42,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                         </svg>
                         <span class="text-sm font-medium">{{ $gallery->category->name }}</span>
-                        @if(method_exists($images, 'total'))
+                        @if($gallery->isVideo())
+                            <span class="mx-2">•</span>
+                            <span class="text-sm">Video</span>
+                        @elseif(method_exists($images, 'total'))
                             <span class="mx-2">•</span>
                             <span class="text-sm">{{ $images->total() }} Foto</span>
                         @endif
@@ -59,10 +62,27 @@
         </div>
     </div>
 
-    <!-- Gallery Grid -->
+    <!-- Gallery Content -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            @if($images->count() > 0)
+            @if($gallery->isVideo())
+                @if($gallery->youtube_embed_url)
+                    <div class="max-w-4xl mx-auto">
+                        <div class="aspect-video rounded-xl overflow-hidden shadow-lg bg-black">
+                            <iframe src="{{ $gallery->youtube_embed_url }}"
+                                    title="{{ $gallery->title }}"
+                                    class="w-full h-full"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>
+                @else
+                    <div class="text-center py-16">
+                        <p class="text-gray-500 text-lg">Link video belum tersedia.</p>
+                    </div>
+                @endif
+            @elseif($images->count() > 0)
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach ($images as $item)
                         <a href="{{ $item->image }}"

@@ -52,6 +52,24 @@ class GalleryResource extends Resource
                     ->label('Deskripsi')
                     ->nullable(),
 
+                Forms\Components\Select::make('type')
+                    ->label('Jenis Galeri')
+                    ->options([
+                        'photo' => 'Foto',
+                        'video' => 'Video (Link YouTube)',
+                    ])
+                    ->default('photo')
+                    ->required()
+                    ->live(),
+
+                Forms\Components\TextInput::make('youtube_url')
+                    ->label('Link YouTube')
+                    ->url()
+                    ->placeholder('https://www.youtube.com/watch?v=...')
+                    ->helperText('Tempel link video YouTube (watch, share, atau embed).')
+                    ->visible(fn (Forms\Get $get): bool => $get('type') === 'video')
+                    ->required(fn (Forms\Get $get): bool => $get('type') === 'video'),
+
                 // FileUpload::make('image_path')
                 //     ->label('Gambar')
                 //     ->image()
@@ -68,7 +86,8 @@ class GalleryResource extends Resource
                     ])
                     ->columns(1)
                     ->addActionLabel('Tambah Gambar')
-                    ->minItems(1),
+                    ->visible(fn (Forms\Get $get): bool => $get('type') !== 'video')
+                    ->minItems(fn (Forms\Get $get): int => $get('type') === 'video' ? 0 : 1),
             ])->columns(1);
     }
 
@@ -76,13 +95,29 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('cover')
+                    ->label('Gambar')
+                    ->getStateUsing(fn (Gallery $record): ?string => $record->isVideo()
+                        ? $record->youtube_thumbnail_url
+                        : $record->images->first()?->image),
                 Tables\Columns\TextColumn::make('title')->label('Judul')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('Kategori')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Jenis')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => $state === 'video' ? 'Video' : 'Foto')
+                    ->color(fn (string $state): string => $state === 'video' ? 'danger' : 'success'),
                 Tables\Columns\TextColumn::make('description')->label('Deskripsi')->limit(50),
-                Tables\Columns\ImageColumn::make('image_path')->label('Gambar'),
                 Tables\Columns\TextColumn::make('created_at')->label('Dibuat')->dateTime(),
             ])
-            ->filters([])
+            ->filters([
+                Tables\Filters\SelectFilter::make('type')
+                    ->label('Jenis Galeri')
+                    ->options([
+                        'photo' => 'Foto',
+                        'video' => 'Video (Link YouTube)',
+                    ]),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
