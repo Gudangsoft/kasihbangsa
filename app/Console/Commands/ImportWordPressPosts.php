@@ -83,7 +83,14 @@ class ImportWordPressPosts extends Command
                 }
 
                 $bar->advance();
+
+                if (($created + $updated + $failed) % 10 === 0) {
+                    gc_collect_cycles();
+                }
             }
+
+            unset($response);
+            gc_collect_cycles();
         }
 
         $bar->finish();
@@ -187,21 +194,29 @@ class ImportWordPressPosts extends Command
 
         $url = $media['source_url'];
 
-        try {
-            $response = Http::timeout(30)->retry(2, 500)->get($url);
-        } catch (Throwable) {
-            return null;
-        }
-
-        if ($response->failed()) {
-            return null;
-        }
-
         $extension = pathinfo(parse_url($url, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION) ?: 'jpg';
         $filename = 'wp-'.$wpPost['id'].'-'.Str::random(6).'.'.$extension;
         $path = 'posts/images/'.$filename;
 
-        Storage::disk('public')->put($path, $response->body());
+        Storage::disk('public')->makeDirectory('posts/images');
+        $fullPath = Storage::disk('public')->path($path);
+
+        // Stream straight to disk (Guzzle "sink") instead of buffering the
+        // whole image in PHP memory — avoids exhausting memory_limit on
+        // hosts with a low CLI limit when images are large.
+        try {
+            $response = Http::timeout(60)->withOptions(['sink' => $fullPath])->retry(2, 500)->get($url);
+        } catch (Throwable) {
+            @unlink($fullPath);
+
+            return null;
+        }
+
+        if ($response->failed()) {
+            @unlink($fullPath);
+
+            return null;
+        }
 
         return $path;
     }
