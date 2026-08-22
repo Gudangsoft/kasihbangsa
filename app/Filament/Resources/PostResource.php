@@ -62,7 +62,8 @@ class PostResource extends Resource
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('uploads')
-                    ->profile('default|simple|full|minimal|none|custom')
+                    ->profile('full')
+                    ->imagesUploadUrl(route('tinymce.upload'))
                     ->resize('both')
                     ->columnSpan('full')
                     ->required(),

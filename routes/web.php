@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TiktokController;
+use App\Http\Controllers\TinyMceUploadController;
 use App\Http\Controllers\UserController;
 use App\Livewire\DetailGallery;
 use App\Livewire\DetailPage;
@@ -24,6 +25,11 @@ Route::get('/', function () {
 });
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+Route::post('/admin/tinymce-upload', [TinyMceUploadController::class, 'store'])
+    ->middleware('auth')
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])
+    ->name('tinymce.upload');
 
 Route::get('/search', GlobalSearch::class)->name('search');
 Route::get('berita', PostItems::class)->name('berita');
