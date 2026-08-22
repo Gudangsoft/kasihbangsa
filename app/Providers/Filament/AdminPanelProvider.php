@@ -13,7 +13,6 @@ use Filament\AvatarProviders\UiAvatarsProvider;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Navigation\NavigationItem;
 use Filament\Navigation\UserMenuItem;
 use Filament\Pages;
 use Filament\Panel;
@@ -25,6 +24,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\HtmlString;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -33,7 +33,15 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->brandLogo(company()->image)
+            ->brandLogo(fn (): HtmlString => new HtmlString(
+                '<div class="flex items-center gap-2">'
+                .'<img src="'.e(company()->image).'" alt="'.e(company()->name).'" class="h-8 w-8 rounded-md object-cover flex-shrink-0" />'
+                .'<span class="text-sm font-semibold leading-tight text-gray-950 dark:text-white">'.e(company()->name).'</span>'
+                .'</div>'
+            ))
+            ->brandLogoHeight('2rem')
+            ->brandName(company()->name)
+            ->favicon(company()->image)
             ->defaultAvatarProvider(NoztAvatarsProvider::class)
             ->id('admin')
             ->path('admin')
@@ -43,22 +51,14 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->userMenuItems([
                 UserMenuItem::make()
+                    ->label('Lihat Website')
+                    ->url('/', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-globe-alt'),
+                UserMenuItem::make()
                     ->label('Ganti Password')
                     ->url(fn (): string => route('filament.admin.pages.change-password'))
                     ->icon('heroicon-o-key'),
             ])
-            ->navigationItems(
-                [
-                    NavigationItem::make('Home')
-                    ->icon('heroicon-o-home')
-                    ->sort(1)
-                    ->url('/', shouldOpenInNewTab: true),
-                    // NavigationItem::make('Withdraw Request')
-                    // ->icon('heroicon-o-banknotes')
-                    // ->sort(1)
-                    // ->url('/arastamapress/withdraw-request', shouldOpenInNewTab: true),
-                ]
-            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
