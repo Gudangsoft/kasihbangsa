@@ -15,6 +15,9 @@
     <!-- Features/Stats Section -->
     <livewire:stats-section />
 
+    <!-- Gallery Section -->
+    <livewire:gallery-section />
+
     <!-- Latest Information -->
     <livewire:latest-information />
 
