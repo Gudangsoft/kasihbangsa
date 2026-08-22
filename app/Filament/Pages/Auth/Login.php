@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Auth;
 
+use App\Filament\Pages\Dashboard;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
@@ -45,12 +46,24 @@ class Login extends BaseLogin
         }
 
         try {
-            return parent::authenticate();
+            $response = parent::authenticate();
         } finally {
             // Regenerate the question after every attempt (success or failure)
             // so a captured answer can't be replayed.
             $this->generateCaptcha();
         }
+
+        if ($response !== null) {
+            // Filament's default LoginResponse redirects to the first
+            // navigation item's URL, which isn't necessarily the dashboard
+            // (e.g. a custom "visit site" nav link). Send admins straight
+            // to the dashboard instead.
+            $this->redirect(Dashboard::getUrl());
+
+            return null;
+        }
+
+        return $response;
     }
 
     /**
