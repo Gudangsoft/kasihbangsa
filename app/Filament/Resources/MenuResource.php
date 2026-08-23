@@ -78,6 +78,7 @@ class MenuResource extends Resource
     {
         return $table
             ->paginated(false)
+            ->reorderable('number')
             ->columns([
                 TextColumn::make('name')->searchable()->sortable()->label('Name')->searchable()
                     ->icon(function (Model $record) {
@@ -118,25 +119,6 @@ class MenuResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\Action::make('moveUp')
-                    ->label('Move Up')
-                    ->icon('heroicon-o-chevron-up')
-                    ->color('primary')
-                    ->iconButton()
-                    ->tooltip('Move Up')
-                    ->action(fn (Model $record) => $record->moveUp())
-                    ->hidden(fn (Model $record) => !$record->canMoveUp()), // Tombol dinonaktifkan jika sudah paling atas
-
-                Tables\Actions\Action::make('moveDown')
-                    ->label('Move Down')
-                    ->icon('heroicon-o-chevron-down')
-                    ->color('info')
-                    ->iconButton()
-                    ->tooltip('Move Down')
-                    ->action(fn (Model $record) => $record->moveDown())
-                    ->hidden(fn (Model $record) => !$record->canMoveDown()), // Tombol dinonaktifkan jika sudah paling bawah
-
-
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
