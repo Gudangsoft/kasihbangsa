@@ -213,6 +213,13 @@ class ProgramStudiResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('view')
+                    ->label('Lihat')
+                    ->icon('heroicon-o-eye')
+                    ->color('gray')
+                    ->url(fn (ProgramStudi $record): string => $record->detail_url)
+                    ->openUrlInNewTab()
+                    ->visible(fn (ProgramStudi $record): bool => $record->status),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
