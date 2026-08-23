@@ -122,7 +122,8 @@ class MenuResource extends Resource
                     ->label('Move Up')
                     ->icon('heroicon-o-chevron-up')
                     ->color('primary')
-                    ->button()
+                    ->iconButton()
+                    ->tooltip('Move Up')
                     ->action(fn (Model $record) => $record->moveUp())
                     ->hidden(fn (Model $record) => !$record->canMoveUp()), // Tombol dinonaktifkan jika sudah paling atas
 
@@ -130,7 +131,8 @@ class MenuResource extends Resource
                     ->label('Move Down')
                     ->icon('heroicon-o-chevron-down')
                     ->color('info')
-                    ->button()
+                    ->iconButton()
+                    ->tooltip('Move Down')
                     ->action(fn (Model $record) => $record->moveDown())
                     ->hidden(fn (Model $record) => !$record->canMoveDown()), // Tombol dinonaktifkan jika sudah paling bawah
 
