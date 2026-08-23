@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
+    protected static ?string $navigationGroup = 'Konten & Publikasi';
     protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationLabel = 'Berita';

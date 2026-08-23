@@ -19,6 +19,7 @@ class QuickLinkResource extends Resource
     protected static ?string $model = QuickLink::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Layanan & Interaksi';
     protected static ?string $navigationLabel = 'Tombol Layanan';
     protected static ?string $modelLabel = 'Tombol Layanan';
     protected static ?int $navigationSort = 6;

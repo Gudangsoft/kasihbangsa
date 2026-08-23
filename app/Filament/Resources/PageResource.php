@@ -28,13 +28,12 @@ class PageResource extends Resource
     protected static ?string $model = Page::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-code-bracket-square';
+    protected static ?string $navigationGroup = 'Konten & Publikasi';
     protected static ?int $navigationSort = 9;
     protected static ?string $navigationLabel = 'Halaman';
 
     protected static ?string $modelLabel = 'Halaman';
     protected static ?string $pluralModelLabel = 'Halaman';
-
-    // protected static ?string $navigationGroup = 'Management';
 
     public static function form(Form $form): Form
     {

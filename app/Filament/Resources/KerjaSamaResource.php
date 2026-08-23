@@ -26,6 +26,7 @@ class KerjaSamaResource extends Resource
     protected static ?string $model = KerjaSama::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Layanan & Interaksi';
     protected static ?int $navigationSort = 7;
     protected static ?string $navigationLabel = 'Data Kerja sama';
 

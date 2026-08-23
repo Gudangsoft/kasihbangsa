@@ -24,6 +24,7 @@ use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 class InformationResource extends Resource
 {
     protected static ?string $model = Information::class;
+    protected static ?string $navigationGroup = 'Konten & Publikasi';
     protected static ?int $navigationSort = 4;
     protected static ?string $navigationLabel = 'Dokumen Informasi';
 

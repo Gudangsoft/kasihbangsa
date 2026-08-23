@@ -49,6 +49,16 @@ class AdminPanelProvider extends PanelProvider
             ->login(Login::class)
             ->sidebarCollapsibleOnDesktop()
             ->maxContentWidth(MaxWidth::Full)
+            ->navigationGroups([
+                'Akademik',
+                'Konten & Publikasi',
+                'Media & Tampilan',
+                'Layanan & Interaksi',
+                'Management',
+                'Pengaturan Website',
+                'Pelindung',
+                'Bantuan',
+            ])
             ->colors([
                 'primary' => Color::Emerald,
             ])

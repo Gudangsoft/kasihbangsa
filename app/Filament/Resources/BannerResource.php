@@ -21,7 +21,7 @@ class BannerResource extends Resource
     protected static ?string $model = Banner::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
-    // protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Media & Tampilan';
     protected static ?int $navigationSort = 5;
 
     public static function getPlacementOptions(): array

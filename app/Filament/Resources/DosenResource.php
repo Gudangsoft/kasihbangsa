@@ -15,6 +15,7 @@ class DosenResource extends Resource
     protected static ?string $model = Dosen::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationGroup = 'Akademik';
     protected static ?int $navigationSort = 9;
     protected static ?string $navigationLabel = 'Dosen';
 

@@ -16,6 +16,7 @@ class ProgramStudiResource extends Resource
     protected static ?string $model = ProgramStudi::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-library';
+    protected static ?string $navigationGroup = 'Akademik';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Program Studi';
 
