@@ -8,8 +8,8 @@
         }])
         ->get();
 
-    $visibleMenus = $allMenus->take(7);
-    $hiddenMenus = $allMenus->skip(7);
+    $visibleMenus = $allMenus->take(10);
+    $hiddenMenus = $allMenus->skip(10);
 @endphp
 
 <nav x-data="{ mobileMenuOpen: false, scrolled: false }"
