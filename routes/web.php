@@ -15,6 +15,8 @@ use App\Livewire\InformationItems;
 use App\Livewire\InformationList;
 use App\Livewire\KerjaSama;
 use App\Livewire\PostItems;
+use App\Livewire\ProgramStudiDetail;
+use App\Livewire\ProgramStudiItems;
 use App\Livewire\TestimonialList;
 use App\Models\Page;
 use Illuminate\Support\Facades\Http;
@@ -32,6 +34,8 @@ Route::post('/admin/tinymce-upload', [TinyMceUploadController::class, 'store'])
     ->name('tinymce.upload');
 
 Route::get('/search', GlobalSearch::class)->name('search');
+Route::get('/prodi', ProgramStudiItems::class)->name('prodi');
+Route::get('/prodi/{slug}', ProgramStudiDetail::class)->name('prodi-detail');
 Route::get('berita', PostItems::class)->name('berita');
 Route::get('berita/{slug}', DetailPost::class)->name('detail-berita');
 
