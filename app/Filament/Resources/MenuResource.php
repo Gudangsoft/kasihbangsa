@@ -86,8 +86,10 @@ class MenuResource extends Resource
                         }
                     }),
                 TextColumn::make('url')->label('Slug / Url'),
-                TextColumn::make('number')->label('Number'),
-                TextColumn::make('parent')->label('Parent Menu')->badge()->color('warning'),
+                TextColumn::make('number')->label('Number')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('parent')->label('Parent Menu')->badge()->color('warning')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('category')->label('Tampil di')->badge()
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'footer' => 'Footer',
@@ -99,8 +101,10 @@ class MenuResource extends Resource
                         'external' => 'External',
                         default => 'Internal',
                     })
-                    ->color(fn (?string $state): string => $state === 'external' ? 'warning' : 'gray'),
-                BooleanColumn::make('submenu')->label('is Sub Menu'),
+                    ->color(fn (?string $state): string => $state === 'external' ? 'warning' : 'gray')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                BooleanColumn::make('submenu')->label('is Sub Menu')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 BooleanColumn::make('status')->label('is Active'),
             ])
             ->defaultSort('number', 'asc')
