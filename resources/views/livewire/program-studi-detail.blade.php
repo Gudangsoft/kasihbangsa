@@ -42,6 +42,30 @@
         </div>
     </section>
 
+    @php
+        $jumpSections = collect([
+            ['id' => 'visi-misi', 'label' => 'Visi & Misi', 'show' => (bool) ($prodi->visi || $prodi->misi || $prodi->tujuan)],
+            ['id' => 'kurikulum', 'label' => 'Kurikulum', 'show' => (bool) $prodi->kurikulum],
+            ['id' => 'profil-lulusan', 'label' => 'Profil Lulusan', 'show' => (bool) $prodi->profil_lulusan],
+            ['id' => 'fasilitas', 'label' => 'Fasilitas', 'show' => (bool) $prodi->fasilitas],
+            ['id' => 'dosen', 'label' => 'Dosen Pengampu', 'show' => $dosens->count() > 0],
+        ])->filter(fn ($section) => $section['show']);
+    @endphp
+
+    @if($jumpSections->count() > 1)
+    <div class="sticky top-20 z-20 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+        <div class="container">
+            <nav class="flex gap-1 overflow-x-auto py-3">
+                @foreach($jumpSections as $section)
+                <a href="#{{ $section['id'] }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 whitespace-nowrap transition-colors">
+                    {{ $section['label'] }}
+                </a>
+                @endforeach
+            </nav>
+        </div>
+    </div>
+    @endif
+
     <section class="py-12 lg:py-16">
         <div class="container grid grid-cols-1 lg:grid-cols-3 gap-10">
             <!-- Info Box -->
@@ -82,7 +106,7 @@
             <!-- Content -->
             <div class="lg:col-span-2 space-y-10">
                 @if($prodi->visi || $prodi->misi || $prodi->tujuan)
-                <div>
+                <div id="visi-misi" class="scroll-mt-36">
                     <h2 class="text-xl font-heading font-bold text-gray-900 mb-5">Visi, Misi &amp; Tujuan</h2>
 
                     @if($prodi->visi)
@@ -149,7 +173,7 @@
                 @endif
 
                 @if($prodi->kurikulum)
-                <div>
+                <div id="kurikulum" class="scroll-mt-36">
                     <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Kurikulum</h2>
                     <div class="prose max-w-none tinymce-content">
                         {!! $prodi->kurikulum !!}
@@ -158,7 +182,7 @@
                 @endif
 
                 @if($prodi->profil_lulusan)
-                <div>
+                <div id="profil-lulusan" class="scroll-mt-36">
                     <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Profil Lulusan &amp; Prospek Karir</h2>
                     <div class="prose max-w-none tinymce-content">
                         {!! $prodi->profil_lulusan !!}
@@ -167,16 +191,31 @@
                 @endif
 
                 @if($prodi->fasilitas)
-                <div>
-                    <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Fasilitas</h2>
+                <div id="fasilitas" class="scroll-mt-36">
+                    <h2 class="text-xl font-heading font-bold text-gray-900 mb-5">Fasilitas</h2>
+                    @if(count($prodi->fasilitas_list) > 0)
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        @foreach($prodi->fasilitas_list as $item)
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col items-center text-center gap-2 hover:shadow-md hover:-translate-y-0.5 transition-all">
+                            <div class="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">{{ $item }}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                    @else
                     <div class="prose max-w-none tinymce-content">
                         {!! $prodi->fasilitas !!}
                     </div>
+                    @endif
                 </div>
                 @endif
 
                 @if($dosens->count() > 0)
-                <div>
+                <div id="dosen" class="scroll-mt-36">
                     <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Dosen Pengampu</h2>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         @foreach($dosens as $dosen)
