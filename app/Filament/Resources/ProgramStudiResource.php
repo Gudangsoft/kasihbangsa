@@ -83,6 +83,45 @@ class ProgramStudiResource extends Resource
                     ])
                     ->columns(2),
 
+                Forms\Components\Section::make('Galeri Foto')
+                    ->description('Foto-foto ini ditampilkan sebagai slider berdiri di halaman program studi')
+                    ->schema([
+                        Forms\Components\FileUpload::make('images')
+                            ->label('Foto Slider')
+                            ->image()
+                            ->multiple()
+                            ->reorderable()
+                            ->appendFiles()
+                            ->directory('program-studi/gallery')
+                            ->maxSize(2048)
+                            ->columnSpanFull(),
+                    ]),
+
+                Forms\Components\Section::make('Media Sosial')
+                    ->description('Akun media sosial khusus program studi ini (opsional)')
+                    ->schema([
+                        Forms\Components\TextInput::make('instagram')
+                            ->label('Instagram')
+                            ->url()
+                            ->placeholder('https://instagram.com/...'),
+
+                        Forms\Components\TextInput::make('facebook')
+                            ->label('Facebook')
+                            ->url()
+                            ->placeholder('https://facebook.com/...'),
+
+                        Forms\Components\TextInput::make('youtube')
+                            ->label('YouTube')
+                            ->url()
+                            ->placeholder('https://youtube.com/...'),
+
+                        Forms\Components\TextInput::make('tiktok')
+                            ->label('TikTok')
+                            ->url()
+                            ->placeholder('https://tiktok.com/@...'),
+                    ])
+                    ->columns(2),
+
                 Forms\Components\Section::make('Visi, Misi & Tujuan')
                     ->schema([
                         Forms\Components\Textarea::make('visi')

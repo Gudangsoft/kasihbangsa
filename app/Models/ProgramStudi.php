@@ -19,6 +19,7 @@ class ProgramStudi extends Model
         'akreditasi',
         'akreditasi_sk',
         'image',
+        'images',
         'description',
         'visi',
         'misi',
@@ -26,6 +27,10 @@ class ProgramStudi extends Model
         'kurikulum',
         'profil_lulusan',
         'fasilitas',
+        'instagram',
+        'facebook',
+        'youtube',
+        'tiktok',
         'order',
         'status',
     ];
@@ -33,12 +38,14 @@ class ProgramStudi extends Model
     protected $casts = [
         'misi' => 'array',
         'tujuan' => 'array',
+        'images' => 'array',
         'status' => 'boolean',
     ];
 
     protected $appends = [
         'image_url',
         'detail_url',
+        'image_urls',
     ];
 
     public function getImageUrlAttribute(): string
@@ -46,6 +53,13 @@ class ProgramStudi extends Model
         return $this->image
             ? asset('storage/'.$this->image)
             : 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&background=002147&color=fff&size=512';
+    }
+
+    public function getImageUrlsAttribute(): array
+    {
+        return collect($this->images ?? [])
+            ->map(fn ($path) => asset('storage/'.$path))
+            ->all();
     }
 
     public function getDetailUrlAttribute(): string

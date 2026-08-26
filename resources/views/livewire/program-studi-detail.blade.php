@@ -70,36 +70,110 @@
         <div class="container grid grid-cols-1 lg:grid-cols-3 gap-10">
             <!-- Info Box -->
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-xl shadow-lg p-6 space-y-3 sticky top-24">
-                    <h3 class="font-heading font-bold text-gray-900 mb-3">Informasi Program</h3>
-                    @if($prodi->jenjang)
-                    <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
-                        <span class="text-gray-500">Jenjang</span>
-                        <span class="font-medium text-gray-900">{{ $prodi->jenjang }}</span>
+                <div class="space-y-6 sticky top-24">
+                    <div class="bg-white rounded-xl shadow-lg p-6 space-y-3">
+                        <h3 class="font-heading font-bold text-gray-900 mb-3">Informasi Program</h3>
+                        @if($prodi->jenjang)
+                        <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                            <span class="text-gray-500">Jenjang</span>
+                            <span class="font-medium text-gray-900">{{ $prodi->jenjang }}</span>
+                        </div>
+                        @endif
+                        @if($prodi->gelar)
+                        <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                            <span class="text-gray-500">Gelar Lulusan</span>
+                            <span class="font-medium text-gray-900">{{ $prodi->gelar }}</span>
+                        </div>
+                        @endif
+                        @if($prodi->akreditasi)
+                        <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                            <span class="text-gray-500">Akreditasi</span>
+                            <span class="font-medium text-gray-900">{{ $prodi->akreditasi }}</span>
+                        </div>
+                        @endif
+                        @if($prodi->akreditasi_sk)
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">No. SK Akreditasi</span>
+                            <span class="font-medium text-gray-900 text-right">{{ $prodi->akreditasi_sk }}</span>
+                        </div>
+                        @endif
+
+                        <a href="{{ route('search') }}" class="btn btn-primary w-full text-center inline-flex items-center justify-center mt-4">
+                            Info Pendaftaran
+                        </a>
                     </div>
-                    @endif
-                    @if($prodi->gelar)
-                    <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
-                        <span class="text-gray-500">Gelar Lulusan</span>
-                        <span class="font-medium text-gray-900">{{ $prodi->gelar }}</span>
-                    </div>
-                    @endif
-                    @if($prodi->akreditasi)
-                    <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
-                        <span class="text-gray-500">Akreditasi</span>
-                        <span class="font-medium text-gray-900">{{ $prodi->akreditasi }}</span>
-                    </div>
-                    @endif
-                    @if($prodi->akreditasi_sk)
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">No. SK Akreditasi</span>
-                        <span class="font-medium text-gray-900 text-right">{{ $prodi->akreditasi_sk }}</span>
+
+                    @if(count($prodi->image_urls) > 0)
+                    <div class="rounded-xl shadow-lg overflow-hidden">
+                        <div x-data="{
+                            currentSlide: 0,
+                            slides: {{ count($prodi->image_urls) }},
+                            autoplay: null,
+                            init() {
+                                this.startAutoplay();
+                            },
+                            startAutoplay() {
+                                this.autoplay = setInterval(() => {
+                                    this.currentSlide = (this.currentSlide + 1) % this.slides;
+                                }, 4000);
+                            },
+                            stopAutoplay() {
+                                clearInterval(this.autoplay);
+                            }
+                        }" class="relative aspect-[3/4]" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
+                            @foreach($prodi->image_urls as $index => $url)
+                            <div x-show="currentSlide === {{ $index }}"
+                                 x-transition:enter="transition ease-out duration-700"
+                                 x-transition:enter-start="opacity-0"
+                                 x-transition:enter-end="opacity-100"
+                                 x-transition:leave="transition ease-in duration-500"
+                                 x-transition:leave-start="opacity-100"
+                                 x-transition:leave-end="opacity-0"
+                                 class="absolute inset-0"
+                                 style="display: {{ $index === 0 ? 'block' : 'none' }}">
+                                <img src="{{ $url }}" alt="{{ $prodi->name }}" class="w-full h-full object-cover">
+                            </div>
+                            @endforeach
+
+                            @if(count($prodi->image_urls) > 1)
+                            <div class="absolute bottom-3 left-0 right-0 z-10 flex justify-center gap-1.5">
+                                @foreach($prodi->image_urls as $index => $url)
+                                <button @click="currentSlide = {{ $index }}; stopAutoplay(); startAutoplay();"
+                                        :class="currentSlide === {{ $index }} ? 'w-5 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/70'"
+                                        class="h-1.5 rounded-full transition-all duration-300">
+                                </button>
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
                     </div>
                     @endif
 
-                    <a href="{{ route('search') }}" class="btn btn-primary w-full text-center inline-flex items-center justify-center mt-4">
-                        Info Pendaftaran
-                    </a>
+                    @php
+                        $prodiSocials = collect([
+                            ['url' => $prodi->instagram, 'label' => 'Instagram', 'color' => 'hover:bg-pink-600', 'path' => 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z'],
+                            ['url' => $prodi->facebook, 'label' => 'Facebook', 'color' => 'hover:bg-blue-600', 'path' => 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'],
+                            ['url' => $prodi->youtube, 'label' => 'YouTube', 'color' => 'hover:bg-red-600', 'path' => 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z'],
+                            ['url' => $prodi->tiktok, 'label' => 'TikTok', 'color' => 'hover:bg-black', 'path' => 'M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z'],
+                        ])->filter(fn ($s) => $s['url']);
+                    @endphp
+
+                    @if($prodiSocials->count() > 0)
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="font-heading font-bold text-gray-900 mb-3">Ikuti Kami</h3>
+                        <div class="flex gap-2">
+                            @foreach($prodiSocials as $social)
+                            <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer"
+                               class="w-10 h-10 bg-primary-700 {{ $social['color'] }} rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                               aria-label="{{ $social['label'] }}">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="{{ $social['path'] }}"/>
+                                </svg>
+                            </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
 
