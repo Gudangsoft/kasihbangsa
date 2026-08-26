@@ -37,7 +37,7 @@
 
             <h1 class="text-3xl md:text-5xl font-heading font-bold max-w-3xl leading-tight">{{ $prodi->name }}</h1>
             @if($prodi->description)
-            <p class="text-gray-200 mt-4 max-w-2xl text-base md:text-lg leading-relaxed">{{ $prodi->description }}</p>
+            <p class="text-gray-200 mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-justify">{{ $prodi->description }}</p>
             @endif
         </div>
     </section>
