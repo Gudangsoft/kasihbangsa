@@ -12,12 +12,45 @@
         </div>
 
         <div class="container relative z-10 py-14 lg:py-28">
-            <a href="{{ route('prodi') }}" class="inline-flex items-center gap-1.5 text-gray-200 hover:text-gold-400 mb-6 text-sm font-medium transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-                Kembali ke Program Studi
-            </a>
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <a href="{{ route('prodi') }}" class="inline-flex items-center gap-1.5 text-gray-200 hover:text-gold-400 text-sm font-medium transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Kembali ke Program Studi
+                </a>
+
+                @if($otherPrograms->count() > 0)
+                <div x-data="{ open: false }" @click.away="open = false" class="relative">
+                    <button @click="open = !open" class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm ring-1 ring-white/30 rounded-lg text-sm font-medium transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4M16 17H4m0 0l4 4m-4-4l4-4"/>
+                        </svg>
+                        Program Studi Lain
+                        <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 -translate-y-2"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 -translate-y-2"
+                         class="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-2xl ring-1 ring-gray-100 py-2 z-30 text-left"
+                         style="display: none;">
+                        @foreach($otherPrograms as $other)
+                        <a href="{{ $other->detail_url }}" class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 transition-colors group">
+                            <img src="{{ $other->image_url }}" alt="{{ $other->name }}" class="w-9 h-9 rounded-full object-cover flex-shrink-0 ring-2 ring-gray-100">
+                            <span class="text-sm font-medium text-gray-700 group-hover:text-primary-600 transition-colors">{{ $other->name }}</span>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
 
             <div class="flex flex-wrap items-center gap-2 mb-4">
                 @if($prodi->jenjang)
@@ -37,7 +70,7 @@
 
             <h1 class="text-3xl md:text-5xl font-heading font-bold max-w-3xl leading-tight">{{ $prodi->name }}</h1>
             @if($prodi->description)
-            <p class="text-gray-200 mt-4 text-base md:text-lg leading-relaxed text-justify">{{ $prodi->description }}</p>
+            <p class="text-gray-200 mt-4 text-base md:text-lg leading-relaxed">{{ $prodi->description }}</p>
             @endif
         </div>
     </section>
