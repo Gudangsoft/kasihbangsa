@@ -37,7 +37,7 @@
 
             <h1 class="text-3xl md:text-5xl font-heading font-bold max-w-3xl leading-tight">{{ $prodi->name }}</h1>
             @if($prodi->description)
-            <p class="text-gray-200 mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-justify">{{ $prodi->description }}</p>
+            <p class="text-gray-200 mt-4 text-base md:text-lg leading-relaxed text-justify">{{ $prodi->description }}</p>
             @endif
         </div>
     </section>
@@ -316,4 +316,64 @@
             </div>
         </div>
     </section>
+
+    @if($otherPrograms->count() > 0)
+    <section class="py-12 lg:py-16 bg-gray-50 border-t border-gray-100">
+        <div class="container">
+            <div class="flex items-end justify-between mb-8">
+                <div>
+                    <span class="inline-block px-4 py-1.5 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-3">
+                        Program Studi Lainnya
+                    </span>
+                    <h2 class="text-2xl font-heading font-bold text-gray-900">Jelajahi Pilihan Program Studi Lain</h2>
+                </div>
+                <a href="{{ route('prodi') }}" class="hidden sm:inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold text-sm whitespace-nowrap">
+                    Lihat Semua
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($otherPrograms as $other)
+                <a href="{{ $other->detail_url }}"
+                   class="group bg-white rounded-xl shadow-md hover:shadow-xl border border-gray-100 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1">
+                    <div class="relative overflow-hidden h-40">
+                        <img src="{{ $other->image_url }}" alt="{{ $other->name }}"
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        @if($other->jenjang)
+                        <span class="absolute top-3 left-3 px-2.5 py-1 bg-gold-500 text-primary-900 rounded-full text-xs font-bold">
+                            {{ $other->jenjang }}
+                        </span>
+                        @endif
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <h3 class="font-heading font-bold text-gray-900 group-hover:text-primary-600 transition-colors mb-2">
+                            {{ $other->name }}
+                        </h3>
+                        @if($other->description)
+                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4 flex-1">
+                            {{ $other->description }}
+                        </p>
+                        @endif
+                        <span class="inline-flex items-center text-primary-600 text-sm font-semibold mt-auto">
+                            Selengkapnya
+                            <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+
+            <div class="sm:hidden text-center mt-8">
+                <a href="{{ route('prodi') }}" class="btn btn-primary inline-flex items-center">
+                    Lihat Semua Program Studi
+                </a>
+            </div>
+        </div>
+    </section>
+    @endif
 </div>

@@ -16,8 +16,15 @@ class ProgramStudiDetail extends Component
 
     public function render()
     {
+        $otherPrograms = ProgramStudi::where('status', true)
+            ->where('id', '!=', $this->prodi->id)
+            ->orderBy('order')
+            ->orderBy('name')
+            ->get();
+
         return view('livewire.program-studi-detail', [
             'dosens' => $this->prodi->dosens(),
+            'otherPrograms' => $otherPrograms,
         ])->layout('components.modern-layout', [
             'title' => $this->prodi->name,
             'description' => $this->prodi->description ?: ($this->prodi->name . ' - ' . company()->name),
