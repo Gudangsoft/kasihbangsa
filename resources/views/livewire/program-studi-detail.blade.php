@@ -45,8 +45,8 @@
     @php
         $jumpSections = collect([
             ['id' => 'visi-misi', 'label' => 'Visi & Misi', 'show' => (bool) ($prodi->visi || $prodi->misi || $prodi->tujuan)],
-            ['id' => 'kurikulum', 'label' => 'Kurikulum', 'show' => (bool) $prodi->kurikulum],
             ['id' => 'profil-lulusan', 'label' => 'Profil Lulusan', 'show' => (bool) $prodi->profil_lulusan],
+            ['id' => 'kurikulum', 'label' => 'Kurikulum', 'show' => (bool) $prodi->kurikulum],
             ['id' => 'fasilitas', 'label' => 'Fasilitas', 'show' => (bool) $prodi->fasilitas],
             ['id' => 'dosen', 'label' => 'Dosen Pengampu', 'show' => $dosens->count() > 0],
         ])->filter(fn ($section) => $section['show']);
@@ -246,20 +246,20 @@
                 </div>
                 @endif
 
-                @if($prodi->kurikulum)
-                <div id="kurikulum" class="scroll-mt-36">
-                    <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Kurikulum</h2>
-                    <div class="prose max-w-none tinymce-content">
-                        {!! $prodi->kurikulum !!}
-                    </div>
-                </div>
-                @endif
-
                 @if($prodi->profil_lulusan)
                 <div id="profil-lulusan" class="scroll-mt-36">
                     <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Profil Lulusan &amp; Prospek Karir</h2>
                     <div class="prose max-w-none tinymce-content">
                         {!! $prodi->profil_lulusan !!}
+                    </div>
+                </div>
+                @endif
+
+                @if($prodi->kurikulum)
+                <div id="kurikulum" class="scroll-mt-36">
+                    <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Kurikulum</h2>
+                    <div class="prose max-w-none tinymce-content">
+                        {!! $prodi->kurikulum !!}
                     </div>
                 </div>
                 @endif
