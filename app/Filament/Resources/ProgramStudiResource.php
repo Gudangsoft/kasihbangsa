@@ -160,6 +160,20 @@ class ProgramStudiResource extends Resource
                             ->columnSpanFull(),
                     ]),
 
+                Forms\Components\Section::make('Tabel Sebaran Mata Kuliah')
+                    ->description('Ditampilkan setelah Kurikulum. Gunakan tabel per semester (kode, nama mata kuliah, SKS).')
+                    ->schema([
+                        TinyEditor::make('sebaran_mata_kuliah')
+                            ->label('')
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsVisibility('public')
+                            ->fileAttachmentsDirectory('program-studi/images')
+                            ->profile('full')
+                            ->imagesUploadUrl(route('tinymce.upload'))
+                            ->resize('both')
+                            ->columnSpanFull(),
+                    ]),
+
                 Forms\Components\Section::make('Profil Lulusan & Prospek Karir')
                     ->schema([
                         TinyEditor::make('profil_lulusan')

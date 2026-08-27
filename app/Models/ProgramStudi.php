@@ -25,6 +25,7 @@ class ProgramStudi extends Model
         'misi',
         'tujuan',
         'kurikulum',
+        'sebaran_mata_kuliah',
         'profil_lulusan',
         'fasilitas',
         'instagram',

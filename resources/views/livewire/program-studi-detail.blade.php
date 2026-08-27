@@ -47,6 +47,7 @@
             ['id' => 'visi-misi', 'label' => 'Visi & Misi', 'show' => (bool) ($prodi->visi || $prodi->misi || $prodi->tujuan)],
             ['id' => 'profil-lulusan', 'label' => 'Profil Lulusan', 'show' => (bool) $prodi->profil_lulusan],
             ['id' => 'kurikulum', 'label' => 'Kurikulum', 'show' => (bool) $prodi->kurikulum],
+            ['id' => 'sebaran-mata-kuliah', 'label' => 'Sebaran Mata Kuliah', 'show' => (bool) $prodi->sebaran_mata_kuliah],
             ['id' => 'fasilitas', 'label' => 'Fasilitas', 'show' => (bool) $prodi->fasilitas],
             ['id' => 'dosen', 'label' => 'Dosen Pengampu', 'show' => $dosens->count() > 0],
         ])->filter(fn ($section) => $section['show']);
@@ -260,6 +261,15 @@
                     <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Kurikulum</h2>
                     <div class="prose max-w-none tinymce-content">
                         {!! $prodi->kurikulum !!}
+                    </div>
+                </div>
+                @endif
+
+                @if($prodi->sebaran_mata_kuliah)
+                <div id="sebaran-mata-kuliah" class="scroll-mt-36">
+                    <h2 class="text-xl font-heading font-bold text-gray-900 mb-4">Sebaran Mata Kuliah</h2>
+                    <div class="prose max-w-none tinymce-content">
+                        {!! $prodi->sebaran_mata_kuliah !!}
                     </div>
                 </div>
                 @endif
