@@ -54,6 +54,20 @@ class Dosen extends Model
         return route('dosen-detail', $this->slug);
     }
 
+    /**
+     * Turns any bare URL inside a plain-text list item (e.g. a Google
+     * Scholar profile pasted into "Penelitian") into a clickable link.
+     */
+    public static function linkify(string $text): string
+    {
+        return Str::of(e($text))
+            ->replaceMatches(
+                '/(https?:\/\/[^\s]+)/',
+                fn ($match) => '<a href="'.$match[0].'" target="_blank" rel="noopener" class="text-primary-600 hover:underline break-all">'.$match[0].'</a>'
+            )
+            ->toString();
+    }
+
     protected static function boot()
     {
         parent::boot();
