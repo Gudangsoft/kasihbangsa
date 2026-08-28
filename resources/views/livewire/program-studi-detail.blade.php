@@ -1,4 +1,70 @@
 <div>
+    <style>
+        /* TinyMCE Content Styling */
+        .tinymce-content img {
+            max-width: 100%;
+            height: auto;
+            display: inline-block;
+        }
+
+        .tinymce-content img[style*="float: left"],
+        .tinymce-content img[style*="float:left"] {
+            float: left !important;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tinymce-content img[style*="float: right"],
+        .tinymce-content img[style*="float:right"] {
+            float: right !important;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tinymce-content p img {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .tinymce-content img[style*="display: inline"],
+        .tinymce-content img[style*="display:inline"] {
+            display: inline !important;
+        }
+
+        /* Preserve TinyMCE table styling, but keep wide tables from
+           breaking mobile layout — scroll the table itself instead of
+           the whole page. */
+        .tinymce-content table {
+            display: block;
+            width: auto !important;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 1rem 0;
+        }
+
+        .tinymce-content table td,
+        .tinymce-content table th {
+            padding: 0.5rem;
+        }
+
+        .tinymce-content::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .tinymce-content figure {
+            display: inline-block;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .tinymce-content figure img {
+            display: block;
+        }
+    </style>
+
     <!-- Page Header -->
     <section class="relative text-white overflow-hidden">
         <div class="absolute inset-0">

@@ -34,9 +34,15 @@
             display: inline !important;
         }
 
-        /* Preserve TinyMCE table styling */
+        /* Preserve TinyMCE table styling, but keep wide tables from
+           breaking mobile layout — scroll the table itself instead of
+           the whole page. */
         .tinymce-content table {
+            display: block;
             width: auto !important;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             margin: 1rem 0;
         }
 
