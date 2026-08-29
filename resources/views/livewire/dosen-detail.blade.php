@@ -58,7 +58,8 @@
         <div class="container grid grid-cols-1 lg:grid-cols-3 gap-10">
             <!-- Info Box -->
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-xl shadow-lg p-6 space-y-1 sticky top-24">
+                <div class="space-y-6 sticky top-24">
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-1">
                     <h3 class="font-heading font-bold text-gray-900 mb-3">Data Dosen</h3>
 
                     @php
@@ -85,6 +86,26 @@
                         </div>
                     </div>
                     @endforeach
+                </div>
+
+                @if(!empty($dosen->links))
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="font-heading font-bold text-gray-900 mb-3">Tautan Terkait</h3>
+                    <div class="flex flex-col gap-2">
+                        @foreach($dosen->links as $link)
+                        @if(!empty($link['url']))
+                        <a href="{{ $link['url'] }}" target="_blank" rel="noopener"
+                           class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-gray-50 hover:bg-primary-50 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors group">
+                            <span class="truncate">{{ $link['label'] ?? $link['url'] }}</span>
+                            <svg class="w-4 h-4 flex-shrink-0 text-gray-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </a>
+                        @endif
+                        @endforeach
+                    </div>
+                </div>
+                @endif
                 </div>
             </div>
 

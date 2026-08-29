@@ -99,6 +99,33 @@ class DosenResource extends Resource
                             ->formatStateUsing(fn ($state) => self::arrayToLines($state)),
                     ]),
 
+                Forms\Components\Section::make('Tautan Terkait')
+                    ->description('Opsional. Tambahkan sebanyak yang diperlukan — misalnya Google Scholar, SINTA, ORCID, Scopus, ResearchGate, dsb.')
+                    ->schema([
+                        Forms\Components\Repeater::make('links')
+                            ->label('')
+                            ->schema([
+                                Forms\Components\TextInput::make('label')
+                                    ->label('Nama')
+                                    ->placeholder('Google Scholar, SINTA, ORCID, dsb.')
+                                    ->required()
+                                    ->maxLength(100),
+
+                                Forms\Components\TextInput::make('url')
+                                    ->label('URL')
+                                    ->url()
+                                    ->required()
+                                    ->placeholder('https://...')
+                                    ->maxLength(255),
+                            ])
+                            ->columns(2)
+                            ->addActionLabel('Tambah Tautan')
+                            ->reorderable()
+                            ->collapsible()
+                            ->itemLabel(fn (array $state): ?string => $state['label'] ?? null)
+                            ->defaultItems(0),
+                    ]),
+
                 Forms\Components\Section::make('Publikasi')
                     ->schema([
                         Forms\Components\TextInput::make('order')

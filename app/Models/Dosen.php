@@ -24,6 +24,7 @@ class Dosen extends Model
         'penelitian',
         'pengabdian_masyarakat',
         'capaian_khusus',
+        'links',
         'photo',
         'order',
         'status',
@@ -34,6 +35,7 @@ class Dosen extends Model
         'penelitian' => 'array',
         'pengabdian_masyarakat' => 'array',
         'capaian_khusus' => 'array',
+        'links' => 'array',
         'status' => 'boolean',
     ];
 
