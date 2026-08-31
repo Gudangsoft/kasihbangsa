@@ -147,7 +147,6 @@
             ['id' => 'profil-lulusan', 'label' => 'Profil Lulusan', 'show' => (bool) $prodi->profil_lulusan],
             ['id' => 'kurikulum', 'label' => 'Kurikulum', 'show' => (bool) $prodi->kurikulum],
             ['id' => 'sebaran-mata-kuliah', 'label' => 'Sebaran Mata Kuliah', 'show' => (bool) $prodi->sebaran_mata_kuliah],
-            ['id' => 'fasilitas', 'label' => 'Fasilitas', 'show' => (bool) $prodi->fasilitas],
             ['id' => 'dosen', 'label' => 'Dosen Pengampu', 'show' => $dosens->count() > 0],
         ])->filter(fn ($section) => $section['show']);
     @endphp
@@ -370,30 +369,6 @@
                     <div class="prose max-w-none tinymce-content">
                         {!! $prodi->sebaran_mata_kuliah !!}
                     </div>
-                </div>
-                @endif
-
-                @if($prodi->fasilitas)
-                <div id="fasilitas" class="scroll-mt-36">
-                    <h2 class="text-xl font-heading font-bold text-gray-900 mb-5">Fasilitas</h2>
-                    @if(count($prodi->fasilitas_list) > 0)
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        @foreach($prodi->fasilitas_list as $item)
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col items-center text-center gap-2 hover:shadow-md hover:-translate-y-0.5 transition-all">
-                            <div class="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                            </div>
-                            <span class="text-sm font-medium text-gray-700">{{ $item }}</span>
-                        </div>
-                        @endforeach
-                    </div>
-                    @else
-                    <div class="prose max-w-none tinymce-content">
-                        {!! $prodi->fasilitas !!}
-                    </div>
-                    @endif
                 </div>
                 @endif
 

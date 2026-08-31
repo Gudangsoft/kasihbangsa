@@ -187,19 +187,6 @@ class ProgramStudiResource extends Resource
                             ->columnSpanFull(),
                     ]),
 
-                Forms\Components\Section::make('Fasilitas')
-                    ->schema([
-                        TinyEditor::make('fasilitas')
-                            ->label('')
-                            ->fileAttachmentsDisk('public')
-                            ->fileAttachmentsVisibility('public')
-                            ->fileAttachmentsDirectory('program-studi/images')
-                            ->profile('full')
-                            ->imagesUploadUrl(route('tinymce.upload'))
-                            ->resize('both')
-                            ->columnSpanFull(),
-                    ]),
-
                 Forms\Components\Section::make('Publikasi')
                     ->schema([
                         Forms\Components\TextInput::make('order')

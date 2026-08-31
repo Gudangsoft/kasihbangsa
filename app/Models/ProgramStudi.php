@@ -27,7 +27,6 @@ class ProgramStudi extends Model
         'kurikulum',
         'sebaran_mata_kuliah',
         'profil_lulusan',
-        'fasilitas',
         'instagram',
         'facebook',
         'youtube',
@@ -66,30 +65,6 @@ class ProgramStudi extends Model
     public function getDetailUrlAttribute(): string
     {
         return route('prodi-detail', $this->slug);
-    }
-
-    /**
-     * Parses the free-text "fasilitas" rich content into a flat list of
-     * facility names, so the public page can render icon cards instead of
-     * raw prose. Falls back to an empty array if nothing list-like is found.
-     */
-    public function getFasilitasListAttribute(): array
-    {
-        if (! $this->fasilitas) {
-            return [];
-        }
-
-        if (preg_match_all('/<li[^>]*>(.*?)<\/li>/is', $this->fasilitas, $matches)) {
-            $items = $matches[1];
-        } else {
-            $items = preg_split('/<\/p>|<br\s*\/?>/i', $this->fasilitas);
-        }
-
-        return collect($items)
-            ->map(fn ($item) => trim(html_entity_decode(strip_tags($item))))
-            ->filter(fn ($item) => $item !== '')
-            ->values()
-            ->all();
     }
 
     public function dosens()
